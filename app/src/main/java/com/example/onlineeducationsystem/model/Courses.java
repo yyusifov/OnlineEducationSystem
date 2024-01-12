@@ -1,10 +1,19 @@
 package com.example.onlineeducationsystem.model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Courses {
+
+    @ForeignKey(
+            entity = CourseDescription.class,
+            parentColumns = "id",
+            childColumns = "description_id",
+            onDelete = ForeignKey.CASCADE
+    )
+
     @PrimaryKey(autoGenerate = true)
     private int id;
 
