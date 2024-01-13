@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity
-public class StudentInformation {
+public class UserInformation {
     @ForeignKey(
             entity = UserRole.class,
             parentColumns = "id",
@@ -20,39 +20,39 @@ public class StudentInformation {
 
     private String user_name;
 
-    private String student_firstname;
+    private String user_firstname;
 
-    private String student_surname;
+    private String user_surname;
 
-    private String student_email;
+    private String user_email;
 
     private int role_id;
 
-    private String student_password;
+    private String user_password;
 
     private Date creation_date;
 
     private Date update_date;
 
-    public StudentInformation() {
+    public UserInformation() {
     }
 
-    public StudentInformation(String user_name, String student_firstname, String student_surname, String student_email, int role_id, String student_password, Date creation_date, Date update_date) {
+    public UserInformation(String user_name, String user_firstname, String user_surname, String user_email, int role_id, String user_password, Date creation_date, Date update_date) {
         this.user_name = user_name;
-        this.student_firstname = student_firstname;
-        this.student_surname = student_surname;
-        this.student_email = student_email;
+        this.user_firstname = user_firstname;
+        this.user_surname = user_surname;
+        this.user_email = user_email;
         this.role_id = role_id;
-        this.student_password = student_password;
+        this.user_password = user_password;
         this.creation_date = creation_date;
         this.update_date = update_date;
     }
 
-    public int getStudent_id() {
+    public int getId() {
         return id;
     }
 
-    public void setStudent_id(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -64,28 +64,28 @@ public class StudentInformation {
         this.user_name = user_name;
     }
 
-    public String getStudent_firstname() {
-        return student_firstname;
+    public String getUser_firstname() {
+        return user_firstname;
     }
 
-    public void setStudent_firstname(String student_firstname) {
-        this.student_firstname = student_firstname;
+    public void setUser_firstname(String user_firstname) {
+        this.user_firstname = user_firstname;
     }
 
-    public String getStudent_surname() {
-        return student_surname;
+    public String getUser_surname() {
+        return user_surname;
     }
 
-    public void setStudent_surname(String student_surname) {
-        this.student_surname = student_surname;
+    public void setUser_surname(String user_surname) {
+        this.user_surname = user_surname;
     }
 
-    public String getStudent_email() {
-        return student_email;
+    public String getUser_email() {
+        return user_email;
     }
 
-    public void setStudent_email(String student_email) {
-        this.student_email = student_email;
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
     public int getRole_id() {
@@ -96,12 +96,12 @@ public class StudentInformation {
         this.role_id = role_id;
     }
 
-    public String getStudent_password() {
-        return student_password;
+    public String getUser_password() {
+        return user_password;
     }
 
-    public void setStudent_password(String student_password) {
-        this.student_password = student_password;
+    public void setUser_password(String user_password) {
+        this.user_password = user_password;
     }
 
     public Date getCreation_date() {

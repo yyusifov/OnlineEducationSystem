@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = {
         @ForeignKey(
-                entity = StudentInformation.class,
+                entity = UserInformation.class,
                 parentColumns = "id",
-                childColumns = "student_id",
+                childColumns = "user_id",
                 onDelete = ForeignKey.CASCADE
         ),
         @ForeignKey(
@@ -18,11 +18,11 @@ import androidx.room.PrimaryKey;
                 onDelete = ForeignKey.CASCADE
         )
 })
-public class StudentCourse {
+public class UserCourse {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private int student_id;
+    private int user_id;
 
     private int course_id;
 }

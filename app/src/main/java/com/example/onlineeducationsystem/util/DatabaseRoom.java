@@ -6,19 +6,22 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.onlineeducationsystem.data.StudentDAO;
-import com.example.onlineeducationsystem.model.StudentInformation;
+import com.example.onlineeducationsystem.data.UserDAO;
+import com.example.onlineeducationsystem.data.UserRoleDAO;
+import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {StudentInformation.class, UserRole.class}, version = 1, exportSchema = false)
+@Database(entities = {UserInformation.class, UserRole.class}, version = 1, exportSchema = false)
 public abstract class DatabaseRoom extends RoomDatabase {
 
     public static final int number_of_threads = 4;
 
-    public abstract StudentDAO getStudentDAO();
+    public abstract UserDAO getUserDAO();
+
+    public abstract UserRoleDAO getUserRoleDAO();
 
     public static volatile DatabaseRoom databaseRoom;
 
