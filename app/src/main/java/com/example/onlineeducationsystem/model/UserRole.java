@@ -4,16 +4,16 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class StudentRole {
+public class UserRole {
     @PrimaryKey
     private int id;
 
     private String role_name;
 
-    public StudentRole() {
+    public UserRole() {
     }
 
-    public StudentRole(int role_id, String role_name) {
+    public UserRole(int role_id, String role_name) {
         this.id = role_id;
         this.role_name = role_name;
     }

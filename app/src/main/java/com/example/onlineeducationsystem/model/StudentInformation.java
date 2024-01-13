@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 public class StudentInformation {
     @ForeignKey(
-            entity = StudentRole.class,
+            entity = UserRole.class,
             parentColumns = "id",
             childColumns = "role_id",
             onDelete = ForeignKey.CASCADE

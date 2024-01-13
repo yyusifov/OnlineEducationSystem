@@ -12,7 +12,7 @@ import com.example.onlineeducationsystem.model.CourseTopics;
 import java.util.List;
 
 public interface CourseTopicsDAO {
-    //Implementation of courses
+    //Implementation of topics
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertTopic(CourseTopics topic);
 
