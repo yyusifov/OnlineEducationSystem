@@ -13,8 +13,8 @@ public class UserRole {
     public UserRole() {
     }
 
-    public UserRole(int role_id, String role_name) {
-        this.id = role_id;
+    public UserRole(int id, String role_name) {
+        this.id = id;
         this.role_name = role_name;
     }
 

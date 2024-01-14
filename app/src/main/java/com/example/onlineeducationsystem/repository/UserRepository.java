@@ -90,7 +90,7 @@ public class UserRepository {
         DatabaseRoom.executorService.execute(new Runnable() {
             @Override
             public void run() {
-                userRoleDAO.insertRole(userRole);
+                userRoleDAO.updateRole(userRole);
             }
         });
     }
