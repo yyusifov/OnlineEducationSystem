@@ -18,11 +18,11 @@ public class UserRole {
         this.role_name = role_name;
     }
 
-    public int getRole_id() {
+    public int getId() {
         return id;
     }
 
-    public void setRole_id(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

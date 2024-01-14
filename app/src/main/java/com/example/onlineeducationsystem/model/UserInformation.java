@@ -4,8 +4,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 @Entity
 public class UserInformation {
     @ForeignKey(
@@ -30,14 +28,14 @@ public class UserInformation {
 
     private String user_password;
 
-    private Date creation_date;
+    private Long creation_date;
 
-    private Date update_date;
+    private Long update_date;
 
     public UserInformation() {
     }
 
-    public UserInformation(String user_name, String user_firstname, String user_surname, String user_email, int role_id, String user_password, Date creation_date, Date update_date) {
+    public UserInformation(String user_name, String user_firstname, String user_surname, String user_email, int role_id, String user_password, Long creation_date, Long update_date) {
         this.user_name = user_name;
         this.user_firstname = user_firstname;
         this.user_surname = user_surname;
@@ -104,19 +102,19 @@ public class UserInformation {
         this.user_password = user_password;
     }
 
-    public Date getCreation_date() {
+    public Long getCreation_date() {
         return creation_date;
     }
 
-    public void setCreation_date(Date creation_date) {
+    public void setCreation_date(Long creation_date) {
         this.creation_date = creation_date;
     }
 
-    public Date getUpdate_date() {
+    public Long getUpdate_date() {
         return update_date;
     }
 
-    public void setUpdate_date(Date update_date) {
+    public void setUpdate_date(Long update_date) {
         this.update_date = update_date;
     }
 }

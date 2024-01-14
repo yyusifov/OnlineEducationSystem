@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.onlineeducationsystem.model.UserInformation;
+import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.repository.UserRepository;
 
 import java.util.List;
@@ -47,4 +48,27 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     // UserRole implementation
+    public LiveData<List<UserRole>> getAllRoles(){
+        return userRepository.getAllRoles();
+    }
+
+    public LiveData<UserRole> getRole(int role_id){
+        return userRepository.getRole(role_id);
+    }
+
+    public static void insertRole(UserRole userRole){
+        userRepository.insertRole(userRole);
+    }
+
+    public static void deleteRole(UserRole userRole){
+        userRepository.deleteRole(userRole);
+    }
+
+    public static void deleteAllRoles(){
+        userRepository.deleteAllRoles();
+    }
+
+    public static void updateRole(UserRole userRole){
+        userRepository.updateRole(userRole);
+    }
 }
