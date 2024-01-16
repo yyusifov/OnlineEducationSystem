@@ -1,6 +1,7 @@
 package com.example.onlineeducationsystem.data;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -11,7 +12,8 @@ import com.example.onlineeducationsystem.model.Courses;
 
 import java.util.List;
 
-public interface CourseDAO {
+@Dao
+public interface CoursesDAO {
     //Implementation of courses
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertCourse(Courses course);

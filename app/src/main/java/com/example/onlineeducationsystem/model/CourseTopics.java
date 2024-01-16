@@ -4,15 +4,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(foreignKeys = @ForeignKey(entity = Courses.class, parentColumns = "id", childColumns = "course_id", onDelete = ForeignKey.CASCADE))
 public class CourseTopics {
-
-    @ForeignKey(
-            entity = Courses.class,
-            parentColumns = "id",
-            childColumns = "course_id",
-            onDelete = ForeignKey.CASCADE
-    )
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -24,6 +17,20 @@ public class CourseTopics {
     private String topic_name;
 
     public CourseTopics() {
+    }
+
+    public CourseTopics(int course_id, int topic_number, String topic_name) {
+        this.course_id = course_id;
+        this.topic_number = topic_number;
+        this.topic_name = topic_name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCourse_id() {
