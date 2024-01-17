@@ -6,6 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.onlineeducationsystem.model.CourseDescription;
+import com.example.onlineeducationsystem.model.CourseSubtopics;
+import com.example.onlineeducationsystem.model.CourseTopics;
+import com.example.onlineeducationsystem.model.Courses;
+import com.example.onlineeducationsystem.model.UserCourse;
 import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.repository.UserRepository;
@@ -70,5 +75,130 @@ public class UserViewModel extends AndroidViewModel {
 
     public static void updateRole(UserRole userRole){
         userRepository.updateRole(userRole);
+    }
+
+    // Courses Implementation
+    public LiveData<List<Courses>> getAllCourses(){
+        return userRepository.getAllCourses();
+    }
+
+    public LiveData<Courses> getCourse(int course_id){
+        return userRepository.getCourse(course_id);
+    }
+
+    public static void insertCourse(Courses course){
+        userRepository.insertCourse(course);
+    }
+
+    public static void deleteCourse(Courses course){
+        userRepository.deleteCourse(course);
+    }
+
+    public static void deleteAllCourses(){
+        userRepository.deleteAllCourses();
+    }
+
+    public static void updateCourse(Courses course){
+        userRepository.updateCourse(course);
+    }
+
+    // User Course implementation
+    public LiveData<List<UserCourse>> getAllUserCourses(){
+        return userRepository.getAllUserCourses();
+    }
+
+    public LiveData<UserCourse> getUserCourse(int user_course_id){
+        return userRepository.getUserCourse(user_course_id);
+    }
+
+    public static void insertUserCourse(UserCourse userCourse){
+        userRepository.insertUserCourse(userCourse);
+    }
+
+    public static void deleteUserCourse(UserCourse userCourse){
+        userRepository.deleteUserCourse(userCourse);
+    }
+
+    public static void deleteAllUserCourses(){
+        userRepository.deleteAllUserCourses();
+    }
+
+    public static void updateUserCourse(UserCourse userCourse){
+        userRepository.updateUserCourse(userCourse);
+    }
+
+    // Course Topics implementation
+    public LiveData<List<CourseTopics>> getAllCourseTopics(){
+        return userRepository.getAllCourseTopics();
+    }
+
+    public LiveData<CourseTopics> getCourseTopic(int course_topic_id){
+        return userRepository.getCourseTopic(course_topic_id);
+    }
+
+    public static void insertCourseTopic(CourseTopics courseTopic){
+        userRepository.insertCourseTopic(courseTopic);
+    }
+
+    public static void deleteCourseTopic(CourseTopics courseTopic){
+        userRepository.deleteCourseTopic(courseTopic);
+    }
+
+    public static void deleteAllCourseTopics(){
+        userRepository.deleteAllCourseTopics();
+    }
+
+    public static void updateCourseTopic(CourseTopics courseTopic){
+        userRepository.updateCourseTopic(courseTopic);
+    }
+
+    // Course Subtopic Implementation
+    public LiveData<List<CourseSubtopics>> getAllCourseSubtopics(){
+        return userRepository.getAllCourseSubtopics();
+    }
+
+    public LiveData<CourseSubtopics> getCourseSubtopic(int course_subtopic_id){
+        return userRepository.getCourseSubtopic(course_subtopic_id);
+    }
+
+    public static void insertCourseSubtopic(CourseSubtopics courseSubtopic){
+        userRepository.insertCourseSubtopic(courseSubtopic);
+    }
+
+    public static void deleteCourseSubtopic(CourseSubtopics courseSubtopics){
+        userRepository.deleteCourseSubtopic(courseSubtopics);
+    }
+
+    public static void deleteAllCourseSubtopics(){
+        userRepository.deleteAllCourseSubtopics();
+    }
+
+    public static void updateCourseSubtopic(CourseSubtopics courseSubtopics){
+        userRepository.updateCourseSubtopic(courseSubtopics);
+    }
+
+    // Course Description implementation
+    public LiveData<List<CourseDescription>> getAllCourseDescription(){
+        return userRepository.getAllCourseDescriptions();
+    }
+
+    public LiveData<CourseDescription> getCourseDescription(int course_description_id){
+        return userRepository.getCourseDescription(course_description_id);
+    }
+
+    public static void insertCourseDescription(CourseDescription courseDescription){
+        userRepository.insertCourseDescription(courseDescription);
+    }
+
+    public static void deleteCourseDescription(CourseDescription courseDescription){
+        userRepository.deleteCourseDescription(courseDescription);
+    }
+
+    public static void deleteAllCourseDescription(){
+        userRepository.deleteAllCourseDescriptions();
+    }
+
+    public static void updateCourseDescription(CourseDescription courseDescription){
+        userRepository.updateCourseDescription(courseDescription);
     }
 }
