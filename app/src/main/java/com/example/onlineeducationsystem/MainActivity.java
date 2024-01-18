@@ -2,12 +2,17 @@ package com.example.onlineeducationsystem;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.onlineeducationsystem.model.UserCourse;
+import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.util.UserViewModel;
 
@@ -15,12 +20,31 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button signIn;
+
+    private TextView forgotPassword;
+
+    private EditText username, password;
+
+    private UserViewModel userViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        UserViewModel userViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication()).create(UserViewModel.class);
+        signIn = findViewById(R.id.signInButton);
+
+        forgotPassword = findViewById(R.id.forgotPassword);
+
+        username = findViewById(R.id.personUsername);
+
+        password = findViewById(R.id.personPassword);
+
+
+
+
+        userViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication()).create(UserViewModel.class);
 
 //          UserRole userRole = new UserRole();
 //
@@ -94,18 +118,32 @@ public class MainActivity extends AppCompatActivity {
 //
 //        UserViewModel.insertCourseSubtopic(courseSubtopics);
 
-        UserCourse userCourse = new UserCourse();
-
-        userCourse.setCourse_id(2);
-        userCourse.setUser_id(1);
-
-        UserViewModel.insertUserCourse(userCourse);
+//        UserCourse userCourse = new UserCourse();
+//
+//        userCourse.setCourse_id(2);
+//        userCourse.setUser_id(1);
+//
+//        UserViewModel.insertUserCourse(userCourse);
 
         userViewModel.getAllRoles().observe(this, new Observer<List<UserRole>>() {
             @Override
             public void onChanged(List<UserRole> userRoles) {
                 for (int i = 0; i < userRoles.size(); i++) {
                     Log.d("element " + userRoles.get(i).getId(), userRoles.get(i).getRole_name());
+                }
+            }
+        });
+    }
+
+    public void onSignIn(View view){
+        userViewModel.getAllUserInformation().observe(MainActivity.this, new Observer<List<UserInformation>>() {
+            @Override
+            public void onChanged(List<UserInformation> userInformation) {
+                for(int i = 0; i < userInformation.size(); i++){
+                    if(username.getText().toString().trim().equals(userInformation.get(i).getUser_name())
+                            && password.getText().toString().trim().equals(userInformation.get(i).getUser_password())){
+                        Toast.makeText(MainActivity.this, "Wassup", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
