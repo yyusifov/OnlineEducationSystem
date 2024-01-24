@@ -1,5 +1,6 @@
 package com.example.onlineeducationsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signIn = findViewById(R.id.signInButton);
+        signIn = findViewById(R.id.confirm_password);
 
         forgotPassword = findViewById(R.id.forgotPassword);
 
@@ -147,5 +148,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void onForgotPassword(View view){
+        Intent intent = new Intent(MainActivity.this, PasswordRecovery.class);
+
+        startActivity(intent);
     }
 }

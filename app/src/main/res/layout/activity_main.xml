@@ -224,6 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
+                        android:onClick="onForgotPassword"
                         android:text="Forgot password?"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -236,7 +237,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/signInButton"
+                        android:id="@+id/signIn"
                         android:layout_width="155dp"
                         android:layout_height="55dp"
                         android:onClick="onSignIn"
