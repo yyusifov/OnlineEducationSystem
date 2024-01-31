@@ -3,13 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/drawable/about.xml" value="0.1125" />
         <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/drawable/backgroundfigure.xml" value="0.2475" />
         <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/drawable/backgroundlogo.xml" value="0.2475" />
+        <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/drawable/homepage.xml" value="0.136" />
         <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/drawable/input_shapes.xml" value="0.211" />
-        <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/layout/activity_home_page.xml" value="0.2698961937716263" />
+        <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/drawable/profilesection.xml" value="0.1125" />
+        <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/drawable/tdesign_course.xml" value="0.1125" />
+        <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/layout/activity_home_page.xml" value="0.264" />
         <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/layout/activity_password_recovery.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/layout/activity_reset_password.xml" value="0.176" />
+        <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/layout/course_row.xml" value="0.4" />
+        <entry key="..\:/Users/HP/Downloads/OnlineEducationSystem/app/src/main/res/menu/navigation_bar.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.onlineeducationsystem.model.Courses;
 import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.util.UserViewModel;
@@ -85,17 +85,17 @@ public class MainActivity extends AppCompatActivity {
 //
 //        UserViewModel.insertCourseDescription(courseDescription);
 
-//        Courses course = new Courses();
-//
-//        course.setCourse_code(10257);
-//
-//        course.setCourse_name("Software Engineering");
-//
-//        course.setCourse_instructor("Umid Suleymanov");
-//
-//        course.setDescription_id(2);
-//
-//        UserViewModel.insertCourse(course);
+        Courses course = new Courses();
+
+        course.setCourse_code(10258);
+
+        course.setCourse_name("Calculus 1");
+
+        course.setCourse_instructor("Yagub Aliyev");
+
+        course.setDescription_id(1);
+
+        UserViewModel.insertCourse(course);
 
 //        CourseTopics courseTopics = new CourseTopics();
 //
@@ -137,13 +137,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSignIn(View view){
+        Intent intent = new Intent(MainActivity.this, HomePage.class);
+        startActivity(intent);
         userViewModel.getAllUserInformation().observe(MainActivity.this, new Observer<List<UserInformation>>() {
             @Override
             public void onChanged(List<UserInformation> userInformation) {
                 for(int i = 0; i < userInformation.size(); i++){
                     if(username.getText().toString().trim().equals(userInformation.get(i).getUser_name())
                             && password.getText().toString().trim().equals(userInformation.get(i).getUser_password())){
-                        Toast.makeText(MainActivity.this, "Wassup", Toast.LENGTH_LONG).show();
                     }
                 }
             }
