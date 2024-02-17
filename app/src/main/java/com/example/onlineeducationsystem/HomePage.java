@@ -13,6 +13,7 @@ import com.example.onlineeducationsystem.adapter.CourseAdapter;
 import com.example.onlineeducationsystem.model.CourseTopics;
 import com.example.onlineeducationsystem.model.Courses;
 import com.example.onlineeducationsystem.util.UserViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -21,10 +22,15 @@ public class HomePage extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private UserViewModel userViewModel;
+
+    private BottomNavigationView navigationBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        navigationBar = findViewById(R.id.navBar);
 
         recyclerView = findViewById(R.id.allCourses);
         recyclerView.setHasFixedSize(true);
@@ -45,6 +51,25 @@ public class HomePage extends AppCompatActivity {
                     }
                 });
             }
+        });
+
+        navigationBar.setOnItemSelectedListener(item -> {
+
+            if(item.getItemId() == R.id.home_page){
+                getSupportFragmentManager().beginTransaction().replace(R.id.homePage, GeneralPage.newInstance()).commit();
+            }
+            else if(item.getItemId() == R.id.myCourses){
+                getSupportFragmentManager().beginTransaction().replace(R.id.homePage, MyCourses.newInstance()).commit();
+            }
+            else if(item.getItemId() == R.id.aboutSystem){
+
+            }
+            else if(item.getItemId() == R.id.profileSection){
+
+            }
+
+
+            return true;
         });
     }
 }

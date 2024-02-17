@@ -16,12 +16,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
-    private List<Courses> allCourses;
+    private List<Courses> courses;
 
     private List<CourseTopics> allCourseTopics;
 
     public CourseAdapter(List<Courses> allCourses, List<CourseTopics> allCourseTopics){
-        this.allCourses = allCourses;
+        this.courses = allCourses;
         this.allCourseTopics = allCourseTopics;
     }
 
@@ -35,21 +35,21 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if(allCourses.get(position).getCourse_name().length() > 14){
-            holder.courseName.setText(allCourses.get(position).getCourse_name().substring(0,15) + ".");
+        if(courses.get(position).getCourse_name().length() > 14){
+            holder.courseName.setText(courses.get(position).getCourse_name().substring(0,15) + ".");
         }
         else{
-            holder.courseName.setText(allCourses.get(position).getCourse_name());
+            holder.courseName.setText(courses.get(position).getCourse_name());
         }
 
-        int lecture_number = allCourseTopics.stream().filter(n -> n.getCourse_id() == allCourses.get(position).getId()).collect(Collectors.toList()).size();
+        int lecture_number = allCourseTopics.stream().filter(n -> n.getCourse_id() == courses.get(position).getId()).collect(Collectors.toList()).size();
 
         holder.lectureNumber.setText(String.valueOf(lecture_number));
     }
 
     @Override
     public int getItemCount() {
-        return allCourses.size();
+        return courses.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
