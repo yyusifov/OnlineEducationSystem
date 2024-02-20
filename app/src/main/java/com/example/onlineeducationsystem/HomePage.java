@@ -1,29 +1,20 @@
 package com.example.onlineeducationsystem;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlineeducationsystem.adapter.CourseAdapter;
-import com.example.onlineeducationsystem.model.CourseTopics;
-import com.example.onlineeducationsystem.model.Courses;
-import com.example.onlineeducationsystem.util.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.List;
 
 public class HomePage extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-
-    private UserViewModel userViewModel;
-
     private BottomNavigationView navigationBar;
+
+    private Bundle bundle;
+
+    private CourseSection courseSection;
+
+    private GeneralPage generalPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,34 +23,32 @@ public class HomePage extends AppCompatActivity {
 
         navigationBar = findViewById(R.id.navBar);
 
-        recyclerView = findViewById(R.id.allCourses);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(HomePage.this.getApplication()).create(UserViewModel.class);
+        bundle = new Bundle();
 
-        userViewModel.getAllCourses().observe(this, new Observer<List<Courses>>() {
-            @Override
-            public void onChanged(List<Courses> courses) {
+        bundle.putInt("Id_of_entered_user", getIntent().getIntExtra("Id_of_entered_user", 1));
 
-                userViewModel.getAllCourseTopics().observe(HomePage.this, new Observer<List<CourseTopics>>() {
-                    @Override
-                    public void onChanged(List<CourseTopics> courseTopics) {
-                        Log.d("num: ", String.valueOf(courseTopics.size()));
-                        CourseAdapter courseAdapter = new CourseAdapter(courses, courseTopics);
-                        recyclerView.setAdapter(courseAdapter);
-                    }
-                });
-            }
-        });
+        generalPage = GeneralPage.newInstance(HomePage.this);
+
+        courseSection = CourseSection.newInstance();
+
+
+        generalPage.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.homePage, generalPage).commit();
 
         navigationBar.setOnItemSelectedListener(item -> {
 
             if(item.getItemId() == R.id.home_page){
-                getSupportFragmentManager().beginTransaction().replace(R.id.homePage, GeneralPage.newInstance()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.homePage, generalPage).commit();
             }
             else if(item.getItemId() == R.id.myCourses){
-                getSupportFragmentManager().beginTransaction().replace(R.id.homePage, MyCourses.newInstance()).commit();
+
+                MyCourses myCourses = MyCourses.newInstance(HomePage.this);
+
+                myCourses.setArguments(bundle);
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.homePage, myCourses).commit();
             }
             else if(item.getItemId() == R.id.aboutSystem){
 
@@ -71,5 +60,10 @@ public class HomePage extends AppCompatActivity {
 
             return true;
         });
+    }
+
+    public void moveToCourseSection(){
+        CourseSection courseSection = CourseSection.newInstance();
+        getSupportFragmentManager().beginTransaction().replace(R.id.homePage, courseSection).commit();
     }
 }

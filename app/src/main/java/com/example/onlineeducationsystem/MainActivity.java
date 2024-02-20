@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.onlineeducationsystem.model.Courses;
-import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.util.UserViewModel;
 
@@ -47,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication()).create(UserViewModel.class);
 
+//        UserViewModel.deleteAllCourses();
 //          UserRole userRole = new UserRole();
 //
 //          userRole.setId(1);
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 //          userRole.setRole_name("Student");
 //
 //          UserViewModel.insertRole(userRole);
-
+//
 //        UserInformation userInformation = new UserInformation();
 //
 //        userInformation.setUser_firstname("Akram");
@@ -84,19 +83,19 @@ public class MainActivity extends AppCompatActivity {
 //        courseDescription.setSyllabusLink("https://www.lehman.edu/faculty/rbettiol/lehman_teaching/2018mat175/MAT175-dept-syllabus.pdf");
 //
 //        UserViewModel.insertCourseDescription(courseDescription);
-
-        Courses course = new Courses();
-
-        course.setCourse_code(10258);
-
-        course.setCourse_name("Calculus 1");
-
-        course.setCourse_instructor("Yagub Aliyev");
-
-        course.setDescription_id(1);
-
-        UserViewModel.insertCourse(course);
-
+//
+//        Courses course = new Courses();
+//
+//        course.setCourse_code(10258);
+//
+//        course.setCourse_name("Calculus 1");
+//
+//        course.setCourse_instructor("Yagub Aliyev");
+//
+//        course.setDescription_id(1);
+//
+//        UserViewModel.insertCourse(course);
+//
 //        CourseTopics courseTopics = new CourseTopics();
 //
 //        courseTopics.setCourse_id(1);
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 //        courseTopics.setTopic_number(1);
 //
 //        UserViewModel.insertCourseTopic(courseTopics);
-
+//
 //        CourseSubtopics courseSubtopics = new CourseSubtopics();
 //
 //        courseSubtopics.setSubtopic_name("Limit Subtopic 1");
@@ -118,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
 //        courseSubtopics.setTopic_id(1);
 //
 //        UserViewModel.insertCourseSubtopic(courseSubtopics);
-
+//
 //        UserCourse userCourse = new UserCourse();
 //
-//        userCourse.setCourse_id(2);
-//        userCourse.setUser_id(1);
+//        userCourse.setCourse_id(1);
+//        userCourse.setUser_id(2);
 //
 //        UserViewModel.insertUserCourse(userCourse);
 
@@ -137,15 +136,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSignIn(View view){
-        Intent intent = new Intent(MainActivity.this, HomePage.class);
-        startActivity(intent);
-        userViewModel.getAllUserInformation().observe(MainActivity.this, new Observer<List<UserInformation>>() {
-            @Override
-            public void onChanged(List<UserInformation> userInformation) {
-                for(int i = 0; i < userInformation.size(); i++){
-                    if(username.getText().toString().trim().equals(userInformation.get(i).getUser_name())
-                            && password.getText().toString().trim().equals(userInformation.get(i).getUser_password())){
-                    }
+
+//        Intent intent = new Intent(MainActivity.this, HomePage.class);
+//        startActivity(intent);
+
+        userViewModel.getAllUserInformation().observe(MainActivity.this, userInformation -> {
+            for(int i = 0; i < userInformation.size(); i++){
+                if(username.getText().toString().trim().equals(userInformation.get(i).getUser_name())
+                        && password.getText().toString().trim().equals(userInformation.get(i).getUser_password())){
+
+                    Intent intent = new Intent(MainActivity.this, HomePage.class);
+                    intent.putExtra("Id_of_entered_user", userInformation.get(i).getId());
+                    startActivity(intent);
+
                 }
             }
         });

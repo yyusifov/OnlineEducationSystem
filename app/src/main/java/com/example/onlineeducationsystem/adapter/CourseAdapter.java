@@ -8,9 +8,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.onlineeducationsystem.HomePage;
 import com.example.onlineeducationsystem.R;
 import com.example.onlineeducationsystem.model.CourseTopics;
 import com.example.onlineeducationsystem.model.Courses;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +23,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     private List<CourseTopics> allCourseTopics;
 
-    public CourseAdapter(List<Courses> allCourses, List<CourseTopics> allCourseTopics){
+    private HomePage homePage;
+
+    public CourseAdapter(List<Courses> allCourses, List<CourseTopics> allCourseTopics, HomePage homePage){
         this.courses = allCourses;
         this.allCourseTopics = allCourseTopics;
+        this.homePage = homePage;
     }
 
     @NonNull
@@ -34,6 +40,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        holder.courseElement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(holder.courseElement, "Course element is clicked", Snackbar.LENGTH_LONG).show();
+                homePage.moveToCourseSection();
+            }
+        });
 
         if(courses.get(position).getCourse_name().length() > 14){
             holder.courseName.setText(courses.get(position).getCourse_name().substring(0,15) + ".");
@@ -54,8 +68,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView courseName, lectureNumber;
+        MaterialCardView courseElement;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            courseElement = itemView.findViewById(R.id.courseElement);
             courseName = itemView.findViewById(R.id.courseName);
             lectureNumber = itemView.findViewById(R.id.lectureNumber);
         }
