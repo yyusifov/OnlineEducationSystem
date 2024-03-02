@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 //        UserCourse userCourse = new UserCourse();
 //
 //        userCourse.setCourse_id(1);
-//        userCourse.setUser_id(2);
+//        userCourse.setUser_id(1);
 //
 //        UserViewModel.insertUserCourse(userCourse);
 

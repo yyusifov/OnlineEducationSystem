@@ -23,11 +23,16 @@ public class PractiseTest extends AppCompatActivity {
 
     private boolean[] isAnswerCorrect;
 
+    private TextView questionNumber;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practise_test);
+
+        questionNumber = findViewById(R.id.question_number_id);
+
 
         questionSet = new Quiz[]{new Quiz(1, "What field was Albert Einstein known for?", "Chemistry", "Biology", "Psychology", "Physics", "Physics"),
                 new Quiz(2, "Where was Albert Einstein born?", "Berlin", "Munich", "Ulm", "Vienna", "Ulm"),
@@ -47,7 +52,7 @@ public class PractiseTest extends AppCompatActivity {
         finishButton = findViewById(R.id.finishButton);
 
 
-        questionText.setText(questionSet[0].getQuestionNumber() + " " + questionSet[0].getQuestion());
+        questionText.setText(questionSet[0].getQuestion());
 
         variantA.setText(questionSet[0].getAnswerA());
         variantB.setText(questionSet[0].getAnswerB());
@@ -60,7 +65,7 @@ public class PractiseTest extends AppCompatActivity {
 
                 if(counter > 0){
 
-                    questionText.setText(questionSet[--counter].getQuestionNumber() + " " + questionSet[counter].getQuestion());
+                    questionText.setText(questionSet[--counter].getQuestion());
 
                     variantA.setText(questionSet[counter].getAnswerA());
                     variantB.setText(questionSet[counter].getAnswerB());
@@ -78,6 +83,9 @@ public class PractiseTest extends AppCompatActivity {
 
                     variantD.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
                     variantD.setTextColor((Color.rgb(246,246,246)));
+
+                    questionNumber.setText("Question " + (counter + 1));
+
                 }
             }
         });
@@ -88,7 +96,7 @@ public class PractiseTest extends AppCompatActivity {
 
 
                 if(counter < (questionSet.length - 1)){
-                    questionText.setText(questionSet[++counter].getQuestionNumber() + " " + questionSet[counter].getQuestion());
+                    questionText.setText(questionSet[++counter].getQuestion());
 
                     variantA.setText(questionSet[counter].getAnswerA());
                     variantB.setText(questionSet[counter].getAnswerB());
@@ -107,6 +115,8 @@ public class PractiseTest extends AppCompatActivity {
 
                     variantD.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
                     variantD.setTextColor((Color.rgb(246,246,246)));
+
+                    questionNumber.setText("Question " + (counter + 1));
                 }
             }
         });
