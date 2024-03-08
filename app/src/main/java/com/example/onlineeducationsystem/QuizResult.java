@@ -2,12 +2,19 @@ package com.example.onlineeducationsystem;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineeducationsystem.QuizSetUp.Quiz;
+import com.example.onlineeducationsystem.QuizSetUp.QuizAnswer;
+import com.example.onlineeducationsystem.adapter.FeedbackAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -15,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,17 +40,29 @@ public class QuizResult extends AppCompatActivity {
 
     private TextView show_result;
 
-    private String[] wrongAnsweredQuestions = new String[100];
-
-    private String[] correctAnswers = new String[100];
-
     private String feedback;
 
+    private ArrayList<QuizAnswer> quizAnswerList;
+
+    private CardView resultTextCardView;
+
+    private Button reviewButton;
+
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_result);
-        show_result = findViewById(R.id.result_id);
+        show_result = findViewById(R.id.score_id);
+
+        resultTextCardView = findViewById(R.id.result_demonstration_id);
+
+        reviewButton = findViewById(R.id.review_but);
+
+        recyclerView = findViewById(R.id.review_of_mistakes_id);
+
+
+        quizAnswerList = new ArrayList<>();
 
         int number_of_correct_answers = 0;
 
@@ -52,26 +72,42 @@ public class QuizResult extends AppCompatActivity {
 
         int counter = 0;
 
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resultTextCardView.setVisibility(View.GONE);
+
+                recyclerView.setVisibility(View.VISIBLE);
+
+                recyclerView.setHasFixedSize(true);
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(QuizResult.this.getApplicationContext()));
+
+                FeedbackAdapter feedbackAdapter = new FeedbackAdapter(quizAnswerList);
+
+                recyclerView.setAdapter(feedbackAdapter);
+            }
+        });
+
         for (int i = 0; i < student_answers.length; i++) {
-            if(student_answers[i] == true){
+            if(student_answers[i]){
                 number_of_correct_answers++;
             }
             else{
-                Log.d("Wrong answers: ", String.valueOf(question_set[i].getQuestion()));
-                wrongAnsweredQuestions[counter] = question_set[i].getQuestion();
 
-                correctAnswers[counter++] = "Question i: " + question_set[i].getCorrectAnswer();
-
-                callAPI("This is my question: " + question_set[i].getQuestion() + "\n" + "This is the correct answer: " + question_set[i].getCorrectAnswer() + "\n Can you provide feedback for this question in a more detailed explanation?");
+                callAPI("This is my question: " + question_set[i].getQuestion() + "\n" + "This is the correct answer: " + question_set[i].getCorrectAnswer() + "\n Can you provide feedback for this question in a more detailed explanation?", i + 1);
 
             }
         }
 
+        String result_text = number_of_correct_answers + "/" + student_answers.length;
+
+        show_result.setText(result_text);
+
         Snackbar.make(show_result, "Number of correct answers: " + number_of_correct_answers, Snackbar.LENGTH_LONG).show();
-//        callAPI("What is component in react?");
     }
 
-    public void callAPI(String question) {
+    public void callAPI(String question, int questionNumber) {
         JSONObject jsonObject = new JSONObject();
         JSONArray messagesArray = new JSONArray();
 
@@ -114,7 +150,7 @@ public class QuizResult extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.d("Wassup", e.getMessage());
-                getResponse("Failed response15: " + e.getMessage());
+                getResponse("Failed response15: " + e.getMessage(), questionNumber);
             }
 
             @Override
@@ -130,7 +166,7 @@ public class QuizResult extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                getResponse(resultText.trim());
+                                getResponse(resultText.trim(), questionNumber);
                             }
                         });
                     } catch (JSONException e) {
@@ -144,7 +180,7 @@ public class QuizResult extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            getResponse("Failed response: " + errorBody);
+                            getResponse("Failed response: " + errorBody, questionNumber);
                         }
                     });
                 }
@@ -155,9 +191,14 @@ public class QuizResult extends AppCompatActivity {
 
 
 
-    public void getResponse(String response){
-        //Snackbar.make(show_result, response, Snackbar.LENGTH_LONG).show();
+    public void getResponse(String response, int questionNumber){
+
+
+        quizAnswerList.add(new QuizAnswer(response, questionNumber));
+
+        Snackbar.make(show_result, questionNumber + " - " + response, Snackbar.LENGTH_LONG).show();
+
         feedback += "\n" + response;
-        show_result.setText(feedback);
+
     }
 }

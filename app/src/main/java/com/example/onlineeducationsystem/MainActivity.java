@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signIn = findViewById(R.id.confirm_password);
+        signIn = findViewById(R.id.signIn);
 
         forgotPassword = findViewById(R.id.forgotPassword);
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 //        userInformation.setUpdate_date(new Date().getTime());
 //
 //        UserViewModel.insertUserInformation(userInformation);
-
+//
 //        CourseDescription courseDescription = new CourseDescription();
 //
 //        courseDescription.setDescription("This course will mainly focus on different aspects of Software Product");
