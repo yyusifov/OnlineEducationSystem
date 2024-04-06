@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.onlineeducationsystem.model.Courses;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomePage extends AppCompatActivity {
@@ -62,8 +63,11 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
-    public void moveToCourseSection(){
+    public void moveToCourseSection(Courses courses){
         CourseSection courseSection = CourseSection.newInstance();
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt("course_id", courses.getId());
+        courseSection.setArguments(bundle1);
         getSupportFragmentManager().beginTransaction().replace(R.id.homePage, courseSection).commit();
     }
 }

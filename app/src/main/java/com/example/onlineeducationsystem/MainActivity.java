@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.onlineeducationsystem.model.CourseSubtopics;
 import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.util.UserViewModel;
 
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication()).create(UserViewModel.class);
 
-//        UserViewModel.deleteAllCourses();
+
+
 //          UserRole userRole = new UserRole();
 //
 //          userRole.setId(1);
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //        courseDescription.setPassingScore(60.0);
 //
-//        courseDescription.setSyllabusLink("https://www.lehman.edu/faculty/rbettiol/lehman_teaching/2018mat175/MAT175-dept-syllabus.pdf");
+//        courseDescription.setSyllabusLink("https://www.cxc.org/SiteAssets/syllabusses/CAPE/CAPE%20History.pdf");
 //
 //        UserViewModel.insertCourseDescription(courseDescription);
 //
@@ -88,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
 //
 //        course.setCourse_code(10258);
 //
-//        course.setCourse_name("Calculus 1");
+//        course.setCourse_name("History");
 //
-//        course.setCourse_instructor("Yagub Aliyev");
+//        course.setCourse_instructor("Yadigar Yusifov");
 //
 //        course.setDescription_id(1);
 //
@@ -100,23 +102,23 @@ public class MainActivity extends AppCompatActivity {
 //
 //        courseTopics.setCourse_id(1);
 //
-//        courseTopics.setTopic_name("Integral");
+//        courseTopics.setTopic_name("Renaissance Religion and Cartography");
 //
-//        courseTopics.setTopic_number(1);
+//        courseTopics.setTopic_number(9);
 //
 //        UserViewModel.insertCourseTopic(courseTopics);
 //
-//        CourseSubtopics courseSubtopics = new CourseSubtopics();
-//
-//        courseSubtopics.setSubtopic_name("Limit Subtopic 1");
-//
-//        courseSubtopics.setSubtopic_file("Link for subtopic 1");
-//
-//        courseSubtopics.setSubtopic_number(11);
-//
-//        courseSubtopics.setTopic_id(1);
-//
-//        UserViewModel.insertCourseSubtopic(courseSubtopics);
+        CourseSubtopics courseSubtopics = new CourseSubtopics();
+
+        courseSubtopics.setSubtopic_name("Maps and the Printed World View");
+
+        courseSubtopics.setSubtopic_file("https://jmp.sh/rWiqX4JK");
+
+        courseSubtopics.setSubtopic_number(91);
+
+        courseSubtopics.setTopic_id(9);
+
+        UserViewModel.insertCourseSubtopic(courseSubtopics);
 //
 //        UserCourse userCourse = new UserCourse();
 //

@@ -45,7 +45,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 Snackbar.make(holder.courseElement, "Course element is clicked", Snackbar.LENGTH_LONG).show();
-                homePage.moveToCourseSection();
+                homePage.moveToCourseSection(courses.get(holder.getAdapterPosition()));
             }
         });
 

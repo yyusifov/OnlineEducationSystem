@@ -2,6 +2,7 @@ package com.example.onlineeducationsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,21 @@ public class CourseSection extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(requireActivity(), PractiseTest.class);
 
+                startActivity(intent);
+            }
+        });
+
+        lectures.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(), Lectures.class);
+                if(null == getArguments()){
+                    Log.d("courseidmessage", "bundle is null");
+                }
+                else {
+                    Log.d("courseidmessage", "course id: " + getArguments().getInt("course_id", -1));
+                    intent.putExtra("course_id", getArguments().getInt("course_id", -1));
+                }
                 startActivity(intent);
             }
         });

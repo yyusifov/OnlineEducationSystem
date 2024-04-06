@@ -16,6 +16,12 @@
         android:theme="@style/Theme.OnlineEducationSystem"
         tools:targetApi="31">
         <activity
+            android:name=".SubtopicSection"
+            android:exported="false" />
+        <activity
+            android:name=".Lectures"
+            android:exported="false" />
+        <activity
             android:name=".QuizResult"
             android:exported="false" />
         <activity
