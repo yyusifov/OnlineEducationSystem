@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.onlineeducationsystem.model.CourseSubtopics;
 import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.util.UserViewModel;
 
@@ -108,17 +107,17 @@ public class MainActivity extends AppCompatActivity {
 //
 //        UserViewModel.insertCourseTopic(courseTopics);
 //
-        CourseSubtopics courseSubtopics = new CourseSubtopics();
-
-        courseSubtopics.setSubtopic_name("Maps and the Printed World View");
-
-        courseSubtopics.setSubtopic_file("https://jmp.sh/rWiqX4JK");
-
-        courseSubtopics.setSubtopic_number(91);
-
-        courseSubtopics.setTopic_id(9);
-
-        UserViewModel.insertCourseSubtopic(courseSubtopics);
+//        CourseSubtopics courseSubtopics = new CourseSubtopics();
+//
+//        courseSubtopics.setSubtopic_name("Maps and the Printed World View");
+//
+//        courseSubtopics.setSubtopic_file("https://jmp.sh/rWiqX4JK");
+//
+//        courseSubtopics.setSubtopic_number(91);
+//
+//        courseSubtopics.setTopic_id(9);
+//
+//        UserViewModel.insertCourseSubtopic(courseSubtopics);
 //
 //        UserCourse userCourse = new UserCourse();
 //

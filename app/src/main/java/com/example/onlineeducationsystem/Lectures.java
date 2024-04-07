@@ -1,5 +1,6 @@
 package com.example.onlineeducationsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +26,7 @@ public class Lectures extends AppCompatActivity {
 
         setContentView(R.layout.activity_lectures);
 
-        recyclerView = findViewById(R.id.lectureList);
+        recyclerView = findViewById(R.id.subtopicList);
 
         Snackbar.make(recyclerView, String.valueOf(getIntent().getIntExtra("course_id", 0)), Snackbar.LENGTH_LONG).show();
 
@@ -39,12 +40,20 @@ public class Lectures extends AppCompatActivity {
             @Override
             public void onChanged(List<CourseTopics> courseTopics) {
 
-                lecturesAdapter = new LecturesAdapter(courseTopics);
+                lecturesAdapter = new LecturesAdapter(courseTopics, Lectures.this);
 
                 recyclerView.setAdapter(lecturesAdapter);
             }
         });
 
 
+    }
+
+    public void moveToSubtopicSection(int topic_id){
+        Intent intent = new Intent(Lectures.this, SubtopicSection.class);
+
+        intent.putExtra("topic_id", topic_id);
+
+        startActivity(intent);
     }
 }
