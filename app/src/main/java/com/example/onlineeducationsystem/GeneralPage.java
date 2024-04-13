@@ -55,7 +55,7 @@ public class GeneralPage extends Fragment {
                     @Override
                     public void onChanged(List<CourseTopics> courseTopics) {
                         Log.d("num: ", String.valueOf(courseTopics.size()));
-                        CourseAdapter courseAdapter = new CourseAdapter(courses, courseTopics, homePage);
+                        CourseAdapter courseAdapter = new CourseAdapter(courses, courseTopics, homePage, 1);
                         recyclerView.setAdapter(courseAdapter);
                     }
                 });

@@ -25,10 +25,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     private HomePage homePage;
 
-    public CourseAdapter(List<Courses> allCourses, List<CourseTopics> allCourseTopics, HomePage homePage){
+    private int view_or_access;
+
+    public CourseAdapter(List<Courses> allCourses, List<CourseTopics> allCourseTopics, HomePage homePage, int view_or_access){
         this.courses = allCourses;
         this.allCourseTopics = allCourseTopics;
         this.homePage = homePage;
+        this.view_or_access = view_or_access;
     }
 
     @NonNull
@@ -44,8 +47,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         holder.courseElement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(holder.courseElement, "Course element is clicked", Snackbar.LENGTH_LONG).show();
-                homePage.moveToCourseSection(courses.get(holder.getAdapterPosition()));
+                if(view_or_access == 0) {
+                    Snackbar.make(holder.courseElement, "Course element is clicked", Snackbar.LENGTH_LONG).show();
+                    homePage.moveToCourseSection(courses.get(holder.getAdapterPosition()));
+                }
+                else if(view_or_access == 1){
+                    Snackbar.make(holder.courseElement, "Course element is clicked22", Snackbar.LENGTH_LONG).show();
+                    homePage.moveToDescriptionSection(courses.get(holder.getAdapterPosition()));
+                }
             }
         });
 

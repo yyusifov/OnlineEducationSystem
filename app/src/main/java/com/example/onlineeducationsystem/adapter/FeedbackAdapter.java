@@ -8,26 +8,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlineeducationsystem.QuizSetUp.QuizAnswer;
 import com.example.onlineeducationsystem.R;
+import com.example.onlineeducationsystem.model.UserAnswer;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHolder> {
 
-    private ArrayList<QuizAnswer> quizAnswer;
-    public FeedbackAdapter(ArrayList<QuizAnswer> quizAnswer){
-        this.quizAnswer = quizAnswer;
-
-        Comparator<QuizAnswer> comparator = new Comparator<QuizAnswer>() {
-            @Override
-            public int compare(QuizAnswer t1, QuizAnswer t2) {
-                return t1.getQuestion_number() - t2.getQuestion_number();
-            }
-        };
-
-        this.quizAnswer.sort(comparator);
+    private ArrayList<UserAnswer> userAnswer;
+    public FeedbackAdapter(ArrayList<UserAnswer> userAnswer){
+        this.userAnswer = userAnswer;
     }
 
     @NonNull
@@ -40,14 +30,14 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull FeedbackAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.question_number.setText("Question " + quizAnswer.get(i).getQuestion_number() + ": ");
+        viewHolder.question_number.setText("Question " + viewHolder.getAdapterPosition() + ": ");
 
-        viewHolder.question_answer.setText(quizAnswer.get(i).getQuestion_answer());
+        viewHolder.question_answer.setText(String.valueOf(userAnswer.get(viewHolder.getAdapterPosition()).getFeedback()));
     }
 
     @Override
     public int getItemCount() {
-        return quizAnswer.size();
+        return userAnswer.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

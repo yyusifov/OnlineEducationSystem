@@ -26,9 +26,9 @@
             android:text="Practice" />
 
         <Button
-            android:id="@+id/graded_assignment"
+            android:id="@+id/grades_U"
             android:layout_width="175dp"
             android:layout_height="65dp"
-            android:text="Graded Assignment" />
+            android:text="Grades" />
     </LinearLayout>
 </FrameLayout>

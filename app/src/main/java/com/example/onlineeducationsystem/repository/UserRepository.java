@@ -8,14 +8,22 @@ import com.example.onlineeducationsystem.data.CourseDescriptionDAO;
 import com.example.onlineeducationsystem.data.CourseSubtopicsDAO;
 import com.example.onlineeducationsystem.data.CourseTopicsDAO;
 import com.example.onlineeducationsystem.data.CoursesDAO;
+import com.example.onlineeducationsystem.data.QuestionDAO;
+import com.example.onlineeducationsystem.data.QuizDAO;
+import com.example.onlineeducationsystem.data.UserAnswerDAO;
 import com.example.onlineeducationsystem.data.UserCourseDAO;
 import com.example.onlineeducationsystem.data.UserDAO;
+import com.example.onlineeducationsystem.data.UserGradesDAO;
 import com.example.onlineeducationsystem.data.UserRoleDAO;
 import com.example.onlineeducationsystem.model.CourseDescription;
 import com.example.onlineeducationsystem.model.CourseSubtopics;
 import com.example.onlineeducationsystem.model.CourseTopics;
 import com.example.onlineeducationsystem.model.Courses;
+import com.example.onlineeducationsystem.model.Question;
+import com.example.onlineeducationsystem.model.Quiz;
+import com.example.onlineeducationsystem.model.UserAnswer;
 import com.example.onlineeducationsystem.model.UserCourse;
+import com.example.onlineeducationsystem.model.UserGrades;
 import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.util.DatabaseRoom;
@@ -31,6 +39,13 @@ public class UserRepository {
     private final CourseSubtopicsDAO courseSubtopicsDAO;
     private final CourseDescriptionDAO courseDescriptionDAO;
 
+    private final QuestionDAO questionDAO;
+
+    private final QuizDAO quizDAO;
+
+    private final UserGradesDAO userGradesDAO;
+
+    private final UserAnswerDAO userAnswerDAO;
     public UserRepository(Application application){
 
         DatabaseRoom databaseRoom = DatabaseRoom.getInstance(application.getApplicationContext());
@@ -42,7 +57,191 @@ public class UserRepository {
         courseTopicsDAO = databaseRoom.getCourseTopicsDAO();
         courseSubtopicsDAO = databaseRoom.getCourseSubtopicsDAO();
         courseDescriptionDAO = databaseRoom.getCourseDescriptionDAO();
+        quizDAO = databaseRoom.getQuizDAO();
+        questionDAO = databaseRoom.getQuestionDAO();
+        userGradesDAO = databaseRoom.getUserGradesDAO();
+        userAnswerDAO = databaseRoom.getUserAnswerDAO();
 
+    }
+
+    // UserAnswer operations are set below
+    public LiveData<List<UserAnswer>> getAllUserAnswers(){
+        return userAnswerDAO.getAllUserAnswers();
+    }
+
+    public LiveData<UserAnswer> getUserAnswer(int user_answer_id){
+        return userAnswerDAO.getUserAnswer(user_answer_id);
+    }
+
+    public void insertUserAnswer(UserAnswer userAnswer){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userAnswerDAO.insertUserAnswer(userAnswer);
+            }
+        });
+    }
+
+    public void updateUserAnswers(UserAnswer userAnswer){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userAnswerDAO.updateUserAnswer(userAnswer);
+            }
+        });
+    }
+
+    public void deleteUserAnswer(UserAnswer userAnswer){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userAnswerDAO.deleteUserAnswer(userAnswer);
+            }
+        });
+    }
+
+    public void deleteAllUserAnswers(){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userAnswerDAO.deleteAllUserAnswers();
+            }
+        });
+    }
+
+    // UserGrades operations are set below
+    public LiveData<List<UserGrades>> getAllUserGrades(){
+        return userGradesDAO.getAllUserGrades();
+    }
+
+    public LiveData<UserGrades> getUserGrade(int grade_id){
+        return userGradesDAO.getUserGrades(grade_id);
+    }
+
+    public void insertUserGrades(UserGrades userGrades){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userGradesDAO.insertUserGrades(userGrades);
+            }
+        });
+    }
+
+    public void updateUserGrades(UserGrades userGrades){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userGradesDAO.updateUserGrade(userGrades);
+            }
+        });
+    }
+
+    public void deleteUserGrade(UserGrades userGrades){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userGradesDAO.deleteUserGrades(userGrades);
+            }
+        });
+    }
+
+    public void deleteAllUserGrades(){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userGradesDAO.deleteAllUserGrades();
+            }
+        });
+    }
+
+    // Question operations are set below:
+    public LiveData<List<Question>> getAllQuestions(){
+        return questionDAO.getAllQuestions();
+    }
+
+    public LiveData<Question> getQuestion(int question_id){
+        return questionDAO.getQuestion(question_id);
+    }
+
+    public void insertQuestion(Question question){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                questionDAO.insertQuestion(question);
+            }
+        });
+    }
+
+    public void updateQuestion(Question question){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                questionDAO.updateQuestion(question);
+            }
+        });
+    }
+
+    public void deleteQuestion(Question question){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                questionDAO.deleteQuestion(question);
+            }
+        });
+    }
+
+    public void deleteAllQuestions(){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                questionDAO.deleteAllQuestions();
+            }
+        });
+    }
+
+    // Quiz operations are set below:
+    public LiveData<List<Quiz>> getAllQuiz(){
+        return quizDAO.getAllQuiz();
+    }
+
+    public LiveData<Quiz> getQuiz(int quiz_id){
+        return quizDAO.getQuiz(quiz_id);
+    }
+
+    public void insertQuiz(Quiz quiz){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                quizDAO.insertQuiz(quiz);
+            }
+        });
+    }
+
+    public void updateQuiz(Quiz quiz){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                quizDAO.updateQuiz(quiz);
+            }
+        });
+    }
+
+    public void deleteQuiz(Quiz quiz){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                quizDAO.deleteQuiz(quiz);
+            }
+        });
+    }
+
+    public void deleteAllQuiz(){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                quizDAO.deleteAllQuiz();
+            }
+        });
     }
 
     // User Information operations are set below:

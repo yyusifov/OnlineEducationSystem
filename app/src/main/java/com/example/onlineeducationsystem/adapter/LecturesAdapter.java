@@ -57,7 +57,7 @@ public class LecturesAdapter extends RecyclerView.Adapter<LecturesAdapter.ViewHo
         private MaterialCardView lecture_object;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            lecture_name = itemView.findViewById(R.id.subtopic_name);
+            lecture_name = itemView.findViewById(R.id.lecture_name);
 
             lecture_number = itemView.findViewById(R.id.subtopic_number);
 

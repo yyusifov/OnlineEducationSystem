@@ -67,7 +67,19 @@ public class HomePage extends AppCompatActivity {
         CourseSection courseSection = CourseSection.newInstance();
         Bundle bundle1 = new Bundle();
         bundle1.putInt("course_id", courses.getId());
+        bundle1.putInt("user_id", getIntent().getIntExtra("Id_of_entered_user", -5));
         courseSection.setArguments(bundle1);
         getSupportFragmentManager().beginTransaction().replace(R.id.homePage, courseSection).commit();
+    }
+
+    public void moveToDescriptionSection(Courses courses){
+        CourseDescriptionFragment courseDescriptionFragment = CourseDescriptionFragment.newInstance();
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt("course_id", courses.getId());
+        bundle1.putInt("user_id", getIntent().getIntExtra("Id_of_entered_user", -5));
+        bundle1.putInt("description_id", courses.getDescription_id());
+        courseDescriptionFragment.setArguments(bundle1);
+        getSupportFragmentManager().beginTransaction().replace(R.id.homePage, courseDescriptionFragment).commit();
+
     }
 }

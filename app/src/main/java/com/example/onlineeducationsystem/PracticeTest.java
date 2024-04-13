@@ -4,27 +4,35 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.onlineeducationsystem.QuizSetUp.Quiz;
+import com.example.onlineeducationsystem.model.Question;
+import com.example.onlineeducationsystem.util.UserViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
-public class PractiseTest extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class PracticeTest extends AppCompatActivity {
 
     private TextView questionText;
     private Button variantA, variantB, variantC, variantD, previousButton, finishButton, nextButton;
 
-    private Quiz[] questionSet;
+    private int counter = -1;
 
-    private int counter = 0;
-
-    private boolean[] isAnswerCorrect;
+    private ArrayList<Integer> isAnswerCorrect;
 
     private TextView questionNumber;
 
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +41,7 @@ public class PractiseTest extends AppCompatActivity {
 
         questionNumber = findViewById(R.id.question_number_id);
 
-
-        questionSet = new Quiz[]{new Quiz(1, "What field was Albert Einstein known for?", "Chemistry", "Biology", "Psychology", "Physics", "Physics"),
-                new Quiz(2, "Where was Albert Einstein born?", "Berlin", "Munich", "Ulm", "Vienna", "Ulm"),
-                new Quiz(3, "Which theory did Albert Einstein develop?", "Theory of Evolution", "Theory of Relativity", "Quantum Theory", "Big Bang Theory", "Theory of Relativity"),
-                new Quiz(4, "In which year was Albert Einstein born?", "1850", "1890", "1879", "1905", "1879"),
-                new Quiz(5, "What empire was Ulm part of when Albert Einstein was born?", "German Empire", "Ottoman Empire", "Roman Empire", "British Empire", "German Empire")};
-
-        isAnswerCorrect = new boolean[questionSet.length];
+        isAnswerCorrect = new ArrayList<>();
 
         questionText = findViewById(R.id.questionText);
         variantA = findViewById(R.id.A_button);
@@ -52,25 +53,20 @@ public class PractiseTest extends AppCompatActivity {
         finishButton = findViewById(R.id.finishButton);
 
 
-        questionText.setText(questionSet[0].getQuestion());
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(PracticeTest.this.getApplication()).create(UserViewModel.class);
 
-        variantA.setText(questionSet[0].getAnswerA());
-        variantB.setText(questionSet[0].getAnswerB());
-        variantC.setText(questionSet[0].getAnswerC());
-        variantD.setText(questionSet[0].getAnswerD());
+        updateQuestion(true);
 
+        Snackbar.make(questionText, "Course id: " + getIntent().getIntExtra("course_id", -1) + " - quiz_id: " + getIntent().getIntExtra("quiz_id",-5), Snackbar.LENGTH_LONG).show();
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(counter > 0){
+                    --counter;
 
-                    questionText.setText(questionSet[--counter].getQuestion());
-
-                    variantA.setText(questionSet[counter].getAnswerA());
-                    variantB.setText(questionSet[counter].getAnswerB());
-                    variantC.setText(questionSet[counter].getAnswerC());
-                    variantD.setText(questionSet[counter].getAnswerD());
+                    boolean next_or_previous = false;
+                    updateQuestion(next_or_previous);
 
                     variantA.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
                     variantA.setTextColor((Color.rgb(246,246,246)));
@@ -93,40 +89,21 @@ public class PractiseTest extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                    boolean next_or_previous = true;
 
+                    updateQuestion(next_or_previous);
 
-                if(counter < (questionSet.length - 1)){
-                    questionText.setText(questionSet[++counter].getQuestion());
-
-                    variantA.setText(questionSet[counter].getAnswerA());
-                    variantB.setText(questionSet[counter].getAnswerB());
-                    variantC.setText(questionSet[counter].getAnswerC());
-                    variantD.setText(questionSet[counter].getAnswerD());
-
-
-                    variantA.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
-                    variantA.setTextColor((Color.rgb(246,246,246)));
-
-                    variantB.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
-                    variantB.setTextColor((Color.rgb(246,246,246)));
-
-                    variantC.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
-                    variantC.setTextColor((Color.rgb(246,246,246)));
-
-                    variantD.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
-                    variantD.setTextColor((Color.rgb(246,246,246)));
-
-                    questionNumber.setText("Question " + (counter + 1));
                 }
-            }
         });
 
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PractiseTest.this, QuizResult.class);
-                intent.putExtra("StudentAnswers", isAnswerCorrect);
-                intent.putExtra("Question_Set", questionSet);
+                Intent intent = new Intent(PracticeTest.this, QuizResult.class);
+                intent.putIntegerArrayListExtra("wrong_answers", isAnswerCorrect);
+                intent.putExtra("quiz_id", getIntent().getIntExtra("quiz_id", -5));
+                intent.putExtra("user_id", getIntent().getIntExtra("user_id", -5));
+                intent.putExtra("course_id", getIntent().getIntExtra("course_id", -5));
                 startActivity(intent);
 
             }
@@ -136,12 +113,7 @@ public class PractiseTest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(variantA.getText().toString().trim().toLowerCase().equals(questionSet[counter].getCorrectAnswer().trim().toLowerCase())){
-                    isAnswerCorrect[counter] = true;
-                }
-                else{
-                    isAnswerCorrect[counter] = false;
-                }
+                checkAnswer(variantA.getText().toString().trim().toLowerCase());
 
 
                 variantA.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(246,246,246)}));
@@ -162,12 +134,8 @@ public class PractiseTest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(variantB.getText().toString().trim().toLowerCase().equals(questionSet[counter].getCorrectAnswer().trim().toLowerCase())){
-                    isAnswerCorrect[counter] = true;
-                }
-                else{
-                    isAnswerCorrect[counter] = false;
-                }
+                checkAnswer(variantB.getText().toString().trim().toLowerCase());
+
 
                 variantB.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(246,246,246)}));
                 variantB.setTextColor((Color.rgb(92,36,130)));
@@ -187,12 +155,7 @@ public class PractiseTest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(variantC.getText().toString().trim().toLowerCase().equals(questionSet[counter].getCorrectAnswer().trim().toLowerCase())){
-                    isAnswerCorrect[counter] = true;
-                }
-                else{
-                    isAnswerCorrect[counter] = false;
-                }
+                checkAnswer(variantC.getText().toString().trim().toLowerCase());
 
 
                 variantC.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(246,246,246)}));
@@ -213,12 +176,7 @@ public class PractiseTest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(variantD.getText().toString().trim().toLowerCase().equals(questionSet[counter].getCorrectAnswer().trim().toLowerCase())){
-                    isAnswerCorrect[counter] = true;
-                }
-                else{
-                    isAnswerCorrect[counter] = false;
-                }
+                checkAnswer(variantD.getText().toString().trim().toLowerCase());
 
                 variantD.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(246,246,246)}));
                 variantD.setTextColor((Color.rgb(92,36,130)));
@@ -231,6 +189,67 @@ public class PractiseTest extends AppCompatActivity {
 
                 variantA.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
                 variantA.setTextColor((Color.rgb(246,246,246)));
+            }
+        });
+    }
+
+    public void checkAnswer(String user_answer){
+        userViewModel.getAllQuestions().observe(this, new Observer<List<Question>>() {
+            @Override
+            public void onChanged(List<Question> questions) {
+                List<Question> questions1 = questions.stream().filter(question -> question.getQuiz_id() == getIntent().getIntExtra("quiz_id", -1)).collect(Collectors.toList());
+                Log.d("user_answer", user_answer);
+                Log.d("user_answer2", questions1.get(counter).getCorrectAnswer().trim().toLowerCase());
+
+                isAnswerCorrect = isAnswerCorrect.stream()
+                        .distinct()
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                Snackbar.make(variantA, String.valueOf(isAnswerCorrect), Snackbar.LENGTH_LONG).show();
+
+                if(!(user_answer.equals(questions1.get(counter).getCorrectAnswer().trim().toLowerCase()))) {
+                    isAnswerCorrect.add(counter);
+                    Log.d("fasg", "Wssup");
+                }
+            }
+        });
+    }
+
+    public void updateQuestion(boolean next_or_previous){
+        userViewModel.getAllQuestions().observe(this, new Observer<List<Question>>() {
+            @Override
+            public void onChanged(List<Question> questions) {
+                Snackbar.make(variantA, String.valueOf(questions.size()), Snackbar.LENGTH_LONG).show();
+                List<Question> questions1 = questions.stream().filter(question -> question.getQuiz_id() == getIntent().getIntExtra("quiz_id", -1)).collect(Collectors.toList());
+                if(counter > 0 || counter < (questions1.size() - 1)) {
+
+                    if(next_or_previous){
+                        counter++;
+                    }
+
+                    questionText.setText(questions1.get(counter).getQuestion_text());
+
+                    variantA.setText(questions1.get(counter).getAnswerA());
+                    variantB.setText(questions1.get(counter).getAnswerB());
+                    variantC.setText(questions1.get(counter).getAnswerC());
+                    variantD.setText(questions1.get(counter).getAnswerD());
+
+                    variantA.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
+                    variantA.setTextColor((Color.rgb(246,246,246)));
+
+                    variantB.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
+                    variantB.setTextColor((Color.rgb(246,246,246)));
+
+                    variantC.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
+                    variantC.setTextColor((Color.rgb(246,246,246)));
+
+                    variantD.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled}},new int[]{Color.CYAN, Color.rgb(92,36,130)}));
+                    variantD.setTextColor((Color.rgb(246,246,246)));
+
+                    questionNumber.setText("Question " + (counter + 1));
+
+                }
+
             }
         });
     }

@@ -10,7 +10,11 @@ import com.example.onlineeducationsystem.model.CourseDescription;
 import com.example.onlineeducationsystem.model.CourseSubtopics;
 import com.example.onlineeducationsystem.model.CourseTopics;
 import com.example.onlineeducationsystem.model.Courses;
+import com.example.onlineeducationsystem.model.Question;
+import com.example.onlineeducationsystem.model.Quiz;
+import com.example.onlineeducationsystem.model.UserAnswer;
 import com.example.onlineeducationsystem.model.UserCourse;
+import com.example.onlineeducationsystem.model.UserGrades;
 import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
 import com.example.onlineeducationsystem.repository.UserRepository;
@@ -25,6 +29,106 @@ public class UserViewModel extends AndroidViewModel {
         super(application);
 
         userRepository = new UserRepository(application);
+    }
+
+    // UserAnswer implementation
+    public LiveData<List<UserAnswer>> getAllUserAnswers(){
+        return userRepository.getAllUserAnswers();
+    }
+
+    public LiveData<UserAnswer> getUserAnswer(int user_answer_id){
+        return userRepository.getUserAnswer(user_answer_id);
+    }
+
+    public static void insertUserAnswer(UserAnswer userAnswer){
+        userRepository.insertUserAnswer(userAnswer);
+    }
+
+    public static void deleteUserAnswer(UserAnswer userAnswer){
+        userRepository.deleteUserAnswer(userAnswer);
+    }
+
+    public static void deleteAllUserAnswers(){
+        userRepository.deleteAllUserAnswers();
+    }
+
+    public static void updateUserAnswers(UserAnswer userAnswer){
+        userRepository.updateUserAnswers(userAnswer);
+    }
+
+    // UserGrades implementation
+    public LiveData<List<UserGrades>> getAllUserGrades(){
+        return userRepository.getAllUserGrades();
+    }
+
+    public LiveData<UserGrades> getUserGrade(int usergrades_id){
+        return userRepository.getUserGrade(usergrades_id);
+    }
+
+    public static void insertUserGrade(UserGrades userGrades){
+        userRepository.insertUserGrades(userGrades);
+    }
+
+    public static void deleteUserGrade(UserGrades userGrades){
+        userRepository.deleteUserGrade(userGrades);
+    }
+
+    public static void deleteAllUserGrades(){
+        userRepository.deleteAllUserGrades();
+    }
+
+    public static void updateUserGrades(UserGrades userGrades){
+        userRepository.updateUserGrades(userGrades);
+    }
+
+    // Quiz implementation
+    public LiveData<List<Quiz>> getAllQuiz(){
+        return userRepository.getAllQuiz();
+    }
+
+    public LiveData<Quiz> getQuiz(int quiz_id){
+        return userRepository.getQuiz(quiz_id);
+    }
+
+    public static void insertQuiz(Quiz quiz){
+        userRepository.insertQuiz(quiz);
+    }
+
+    public static void deleteQuiz(Quiz quiz){
+        userRepository.deleteQuiz(quiz);
+    }
+
+    public static void deleteAllQuiz(){
+        userRepository.deleteAllQuiz();
+    }
+
+    public static void updateQuiz(Quiz quiz){
+        userRepository.updateQuiz(quiz);
+    }
+
+    // Question implementation
+    public LiveData<List<Question>> getAllQuestions(){
+        return userRepository.getAllQuestions();
+    }
+
+    public LiveData<Question> getQuestion(int question_id){
+        return userRepository.getQuestion(question_id);
+    }
+
+    public static void insertQuestion(Question question){
+        userRepository.insertQuestion(question);
+    }
+
+    public static void deleteQuestion(Question question){
+        userRepository.deleteQuestion(question);
+    }
+
+    public static void deleteAllQuestions(){
+        userRepository.deleteAllQuestions();
+    }
+
+    public static void updateQuestion(Question question){
+        userRepository.updateQuestion(question);
     }
 
     // UserInformation implementation

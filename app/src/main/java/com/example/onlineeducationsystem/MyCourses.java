@@ -83,7 +83,7 @@ public class MyCourses extends Fragment {
                                     }
                                 }
 
-                                CourseAdapter courseAdapter = new CourseAdapter(user_courses, courseTopics, homePage);
+                                CourseAdapter courseAdapter = new CourseAdapter(user_courses, courseTopics, homePage, 0);
                                 recyclerView.setAdapter(courseAdapter);
 
                             }

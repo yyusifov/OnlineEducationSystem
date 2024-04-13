@@ -15,6 +15,7 @@ import com.example.onlineeducationsystem.util.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Lectures extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -40,7 +41,9 @@ public class Lectures extends AppCompatActivity {
             @Override
             public void onChanged(List<CourseTopics> courseTopics) {
 
-                lecturesAdapter = new LecturesAdapter(courseTopics, Lectures.this);
+                List<CourseTopics> courseTopicsList = courseTopics.stream().filter(courseTopics1 -> courseTopics1.getCourse_id() == getIntent().getIntExtra("course_id", 0)).collect(Collectors.toList());
+
+                lecturesAdapter = new LecturesAdapter(courseTopicsList, Lectures.this);
 
                 recyclerView.setAdapter(lecturesAdapter);
             }

@@ -11,7 +11,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 public class CourseSection extends Fragment {
-    private Button lectures, practice, graded_test;
+    private Button lectures, practice, grades;
 
     public CourseSection() {
         // Required empty public constructor
@@ -38,13 +38,20 @@ public class CourseSection extends Fragment {
 
         practice = view.findViewById(R.id.self_check_quiz);
 
-        graded_test = view.findViewById(R.id.graded_assignment);
+        grades = view.findViewById(R.id.grades_U);
 
         practice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(requireActivity(), PractiseTest.class);
-
+                Intent intent = new Intent(requireActivity(), TestSection.class);
+                if(null == getArguments()){
+                    Log.d("courseidmessage", "bundle is null");
+                }
+                else {
+                    Log.d("courseidmessage", "course id: " + getArguments().getInt("course_id", -1));
+                    intent.putExtra("course_id", getArguments().getInt("course_id", -1));
+                    intent.putExtra("user_id", getArguments().getInt("user_id", -1));
+                }
                 startActivity(intent);
             }
         });
@@ -63,6 +70,23 @@ public class CourseSection extends Fragment {
                 startActivity(intent);
             }
         });
+
+        grades.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(), GradeSection.class);
+                if(null == getArguments()){
+                    Log.d("courseidmessage", "bundle is null");
+                }
+                else {
+                    Log.d("courseidmessage", "course id: " + getArguments().getInt("course_id", -1));
+                    intent.putExtra("course_id", getArguments().getInt("course_id", -1));
+                    intent.putExtra("user_id", getArguments().getInt("user_id", -1));
+                }
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 }

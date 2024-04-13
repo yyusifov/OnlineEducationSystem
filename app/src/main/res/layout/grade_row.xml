@@ -2,20 +2,20 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="90dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="20dp"
     app:cardBackgroundColor="#00FFFFFF">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/lecture_object"
-        android:layout_width="350dp"
+        android:id="@+id/grade_object"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center|top"
-        app:cardBackgroundColor="#F95B0E">
+        app:cardBackgroundColor="#9C27B0">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="0.2dp"
             android:layout_marginRight="0.2dp"
@@ -24,28 +24,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical"
+                android:background="#F6F6F6"
+                android:gravity="start|center_vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="14dp">
 
                 <TextView
-                    android:id="@+id/lecture_name"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/quiz_name_for_grade"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Ancient Civilizations"
+                    android:text="Quiz 1"
                     android:textColor="#000000"
                     android:textSize="19sp" />
 
                 <TextView
-                    android:id="@+id/subtopic_number"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/grade_id"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Lecture 1"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
+                    android:gravity="end"
+                    android:paddingRight="24dp"
+                    android:text="7/15"
+                    android:textSize="19sp" />
+
+
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

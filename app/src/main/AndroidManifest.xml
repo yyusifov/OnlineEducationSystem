@@ -16,6 +16,18 @@
         android:theme="@style/Theme.OnlineEducationSystem"
         tools:targetApi="31">
         <activity
+            android:name=".CourseDescription"
+            android:exported="false" />
+        <activity
+            android:name=".FeedbackSection"
+            android:exported="false" />
+        <activity
+            android:name=".GradeSection"
+            android:exported="false" />
+        <activity
+            android:name=".TestSection"
+            android:exported="false" />
+        <activity
             android:name=".SubtopicSection"
             android:exported="false" />
         <activity
@@ -25,7 +37,7 @@
             android:name=".QuizResult"
             android:exported="false" />
         <activity
-            android:name=".PractiseTest"
+            android:name=".PracticeTest"
             android:exported="false" />
         <activity
             android:name=".HomePage"

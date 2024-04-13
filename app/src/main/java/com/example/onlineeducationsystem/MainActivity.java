@@ -57,15 +57,15 @@ public class MainActivity extends AppCompatActivity {
 //
 //        UserInformation userInformation = new UserInformation();
 //
-//        userInformation.setUser_firstname("Akram");
+//        userInformation.setUser_firstname("Yadigar");
 //
-//        userInformation.setUser_surname("Bayramli");
+//        userInformation.setUser_surname("Yusifov");
 //
-//        userInformation.setUser_password("akram313");
+//        userInformation.setUser_password("yadigar313");
 //
-//        userInformation.setUser_email("abayramli14526@ada.edu.az");
+//        userInformation.setUser_email("yyusifov12087@ada.edu.az");
 //
-//        userInformation.setUser_name("abayramli14526");
+//        userInformation.setUser_name("yyusifov12087");
 //
 //        userInformation.setRole_id(1);
 //
@@ -87,13 +87,13 @@ public class MainActivity extends AppCompatActivity {
 //
 //        Courses course = new Courses();
 //
-//        course.setCourse_code(10258);
+//        course.setCourse_code(10259);
 //
-//        course.setCourse_name("History");
+//        course.setCourse_name("Physics");
 //
-//        course.setCourse_instructor("Yadigar Yusifov");
+//        course.setCourse_instructor("Necati Sasmaz");
 //
-//        course.setDescription_id(1);
+//        course.setDescription_id(2);
 //
 //        UserViewModel.insertCourse(course);
 //
@@ -121,10 +121,25 @@ public class MainActivity extends AppCompatActivity {
 //
 //        UserCourse userCourse = new UserCourse();
 //
-//        userCourse.setCourse_id(1);
+//        userCourse.setCourse_id(2);
 //        userCourse.setUser_id(1);
 //
 //        UserViewModel.insertUserCourse(userCourse);
+//
+//        Quiz quiz = new Quiz();
+//
+//        quiz.setQuiz_name("Graded Quiz 1");
+//
+//        quiz.setCourse_id(1);
+//
+//        quiz.setTotal_number_of_questions(10);
+//
+//        UserViewModel.insertQuiz(quiz);
+
+//        Question question = new Question(1, 2, "Around what year was the \"Book of Hours, Use of Paris\" created, marking it as a significant artifact of religious and artistic value?", "1400", "1450", "1493", "1543", "1450", 11);
+//
+//        UserViewModel.insertQuestion(question);
+
 
         userViewModel.getAllRoles().observe(this, new Observer<List<UserRole>>() {
             @Override
