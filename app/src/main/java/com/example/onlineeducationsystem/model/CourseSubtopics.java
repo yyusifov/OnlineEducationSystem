@@ -12,7 +12,7 @@ public class CourseSubtopics {
 
     private int topic_id;
 
-    private int subtopic_number;
+    private double subtopic_number;
 
     private String subtopic_name;
 
@@ -21,7 +21,7 @@ public class CourseSubtopics {
     public CourseSubtopics() {
     }
 
-    public CourseSubtopics(int topic_id, int subtopic_number, String subtopic_name, String subtopic_file) {
+    public CourseSubtopics(int topic_id, float subtopic_number, String subtopic_name, String subtopic_file) {
         this.topic_id = topic_id;
         this.subtopic_number = subtopic_number;
         this.subtopic_name = subtopic_name;
@@ -36,11 +36,11 @@ public class CourseSubtopics {
         this.id = id;
     }
 
-    public int getSubtopic_number() {
+    public double getSubtopic_number() {
         return subtopic_number;
     }
 
-    public void setSubtopic_number(int subtopic_number) {
+    public void setSubtopic_number(double subtopic_number) {
         this.subtopic_number = subtopic_number;
     }
 

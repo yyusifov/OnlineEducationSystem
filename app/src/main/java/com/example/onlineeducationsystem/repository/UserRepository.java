@@ -13,6 +13,7 @@ import com.example.onlineeducationsystem.data.QuizDAO;
 import com.example.onlineeducationsystem.data.UserAnswerDAO;
 import com.example.onlineeducationsystem.data.UserCourseDAO;
 import com.example.onlineeducationsystem.data.UserDAO;
+import com.example.onlineeducationsystem.data.UserGenderDAO;
 import com.example.onlineeducationsystem.data.UserGradesDAO;
 import com.example.onlineeducationsystem.data.UserRoleDAO;
 import com.example.onlineeducationsystem.model.CourseDescription;
@@ -23,6 +24,7 @@ import com.example.onlineeducationsystem.model.Question;
 import com.example.onlineeducationsystem.model.Quiz;
 import com.example.onlineeducationsystem.model.UserAnswer;
 import com.example.onlineeducationsystem.model.UserCourse;
+import com.example.onlineeducationsystem.model.UserGender;
 import com.example.onlineeducationsystem.model.UserGrades;
 import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
@@ -46,6 +48,8 @@ public class UserRepository {
     private final UserGradesDAO userGradesDAO;
 
     private final UserAnswerDAO userAnswerDAO;
+
+    private final UserGenderDAO userGenderDAO;
     public UserRepository(Application application){
 
         DatabaseRoom databaseRoom = DatabaseRoom.getInstance(application.getApplicationContext());
@@ -61,7 +65,53 @@ public class UserRepository {
         questionDAO = databaseRoom.getQuestionDAO();
         userGradesDAO = databaseRoom.getUserGradesDAO();
         userAnswerDAO = databaseRoom.getUserAnswerDAO();
+        userGenderDAO = databaseRoom.getUserGenderDAO();
 
+    }
+
+    // UserGender operations are set below
+    public LiveData<List<UserGender>> getAllUserGenders(){
+        return userGenderDAO.getAllGenders();
+    }
+
+    public LiveData<UserGender> getUserGender(int gender_id){
+        return userGenderDAO.getGender(gender_id);
+    }
+
+    public void insertUserGender(UserGender userGender){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userGenderDAO.insertGender(userGender);
+            }
+        });
+    }
+
+    public void updateUserGender(UserGender userGender){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userGenderDAO.updateGender(userGender);
+            }
+        });
+    }
+
+    public void deleteUserGender(UserGender userGender){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userGenderDAO.deleteGender(userGender);
+            }
+        });
+    }
+
+    public void deleteAllUserGenders(){
+        DatabaseRoom.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                userGenderDAO.deleteAllGender();
+            }
+        });
     }
 
     // UserAnswer operations are set below

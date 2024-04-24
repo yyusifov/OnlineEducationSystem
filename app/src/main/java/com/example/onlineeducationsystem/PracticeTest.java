@@ -205,7 +205,7 @@ public class PracticeTest extends AppCompatActivity {
                         .distinct()
                         .collect(Collectors.toCollection(ArrayList::new));
 
-                Snackbar.make(variantA, String.valueOf(isAnswerCorrect), Snackbar.LENGTH_LONG).show();
+                //Snackbar.make(variantA, String.valueOf(isAnswerCorrect), Snackbar.LENGTH_LONG).show();
 
                 if(!(user_answer.equals(questions1.get(counter).getCorrectAnswer().trim().toLowerCase()))) {
                     isAnswerCorrect.add(counter);
@@ -219,7 +219,7 @@ public class PracticeTest extends AppCompatActivity {
         userViewModel.getAllQuestions().observe(this, new Observer<List<Question>>() {
             @Override
             public void onChanged(List<Question> questions) {
-                Snackbar.make(variantA, String.valueOf(questions.size()), Snackbar.LENGTH_LONG).show();
+                //Snackbar.make(variantA, String.valueOf(questions.size()), Snackbar.LENGTH_LONG).show();
                 List<Question> questions1 = questions.stream().filter(question -> question.getQuiz_id() == getIntent().getIntExtra("quiz_id", -1)).collect(Collectors.toList());
                 if(counter > 0 || counter < (questions1.size() - 1)) {
 

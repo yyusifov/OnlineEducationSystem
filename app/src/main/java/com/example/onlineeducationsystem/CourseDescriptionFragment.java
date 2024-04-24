@@ -68,6 +68,8 @@ public class CourseDescriptionFragment extends Fragment {
                 });
             }
         });
+
+
         return view;
     }
 }

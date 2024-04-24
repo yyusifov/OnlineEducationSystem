@@ -28,6 +28,12 @@ import androidx.room.PrimaryKey;
                 parentColumns = "grade_id",
                 childColumns = "grade_id",
                 onDelete = ForeignKey.CASCADE
+        ),
+        @ForeignKey(
+                entity = Question.class,
+                parentColumns = "question_id",
+                childColumns = "question_id",
+                onDelete = ForeignKey.CASCADE
         )
 })
 public class UserAnswer {
@@ -41,7 +47,7 @@ public class UserAnswer {
 
     private int quiz_id;
 
-    private float subtopic_number;
+    private int question_id;
 
     private String question_text;
 
@@ -52,11 +58,11 @@ public class UserAnswer {
     public UserAnswer() {
     }
 
-    public UserAnswer(int user_id, int course_id, int quiz_id, int grade_id, float subtopic_number, String question_text, String correct_answer, String feedback) {
+    public UserAnswer(int user_id, int course_id, int quiz_id, int grade_id, int question_id, String question_text, String correct_answer, String feedback) {
         this.user_id = user_id;
         this.course_id = course_id;
         this.quiz_id = quiz_id;
-        this.subtopic_number = subtopic_number;
+        this.question_id = question_id;
         this.question_text = question_text;
         this.correct_answer = correct_answer;
         this.feedback = feedback;
@@ -95,12 +101,12 @@ public class UserAnswer {
         this.quiz_id = quiz_id;
     }
 
-    public float getSubtopic_number() {
-        return subtopic_number;
+    public int getQuestion_id() {
+        return question_id;
     }
 
-    public void setSubtopic_number(float subtopic_number) {
-        this.subtopic_number = subtopic_number;
+    public void setQuestion_id(int question_id) {
+        this.question_id = question_id;
     }
 
     public String getQuestion_text() {

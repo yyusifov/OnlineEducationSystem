@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlineeducationsystem.adapter.SubtopicAdapter;
 import com.example.onlineeducationsystem.model.CourseSubtopics;
 import com.example.onlineeducationsystem.util.UserViewModel;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +34,7 @@ public class SubtopicSection extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         int topicId = getIntent().getIntExtra("topic_id", 0);
-        Snackbar.make(recyclerView, String.valueOf(topicId), Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(recyclerView, String.valueOf(topicId), Snackbar.LENGTH_LONG).show();
 
         UserViewModel userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication()).create(UserViewModel.class);
 

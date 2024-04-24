@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyProfile">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/pp_card_view"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="30dp"
+                app:cardBackgroundColor="#9C27B0"
+                app:cardCornerRadius="60dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="105dp"
+                    android:layout_height="105dp"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="2.4dp"
+                    app:cardCornerRadius="60dp">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/morgan_freeman_deauville_2018" />
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/pp_card_view">
+
+                <TextView
+                    android:id="@+id/username_text_p"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Yadigar Yusifov"
+                    android:textColor="#000000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="1.5dp"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="30dp"
+                android:background="#C3C0C0"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fullname_parentcard"
+                    android:layout_width="322dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="#C3C0C0"
+                    app:cardCornerRadius="13dp"
+                    app:cardElevation="0dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/full_name_cardview"
+                        android:layout_width="320dp"
+                        android:layout_height="61dp"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="13dp">
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Full Name" />
+
+                        <EditText
+                            android:id="@+id/fullname_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="22dp"
+                            android:background="#00FFFFFF"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins"
+                            android:hint="Name"
+                            android:inputType="text" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="13dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/gender_bigger_card"
+                        android:layout_width="150dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="19dp"
+                        app:cardBackgroundColor="#C3C0C0"
+                        app:cardCornerRadius="13dp"
+                        app:cardElevation="0dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/gender_cardview"
+                            android:layout_width="148dp"
+                            android:layout_height="61dp"
+                            android:layout_gravity="center"
+                            app:cardCornerRadius="13dp">
+
+                            <TextView
+                                android:id="@+id/textView1235"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Gender" />
+
+                            <EditText
+                                android:id="@+id/gender_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginTop="22dp"
+                                android:background="#00FFFFFF"
+                                android:focusable="false"
+                                android:fontFamily="@font/poppins"
+                                android:hint="Male"
+                                android:inputType="text" />
+                        </androidx.cardview.widget.CardView>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bigger_birthdate_cardview"
+                        android:layout_width="150dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="#C3C0C0"
+                        app:cardCornerRadius="13dp"
+                        app:cardElevation="0dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/birthdate_cardview"
+                            android:layout_width="148dp"
+                            android:layout_height="61dp"
+                            android:layout_gravity="center"
+                            app:cardCornerRadius="13dp">
+
+                            <TextView
+                                android:id="@+id/textView123565"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Birth date" />
+
+                            <EditText
+                                android:id="@+id/birth_date_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginTop="22dp"
+                                android:background="#00FFFFFF"
+                                android:editable="true"
+                                android:focusable="false"
+                                android:fontFamily="@font/poppins"
+                                android:hint="14/07/2002"
+                                android:inputType="text" />
+                        </androidx.cardview.widget.CardView>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/bigger_phone_number_cardview"
+                    android:layout_width="322dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="13dp"
+                    app:cardBackgroundColor="#C3C0C0"
+                    app:cardCornerRadius="13dp"
+                    app:cardElevation="0dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/phone_number_cardview"
+                        android:layout_width="320dp"
+                        android:layout_height="61dp"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="13dp">
+
+                        <TextView
+                            android:id="@+id/textView11423"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Phone Number" />
+
+                        <EditText
+                            android:id="@+id/phone_number_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="22dp"
+                            android:background="#00FFFFFF"
+                            android:fontFamily="@font/poppins"
+                            android:hint="(+994) 70 827 34 25"
+                            android:inputType="text" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/bigger_email_cardview"
+                    android:layout_width="322dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="13dp"
+                    app:cardBackgroundColor="#C3C0C0"
+                    app:cardCornerRadius="13dp"
+                    app:cardElevation="0dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/email_cardview"
+                        android:layout_width="320dp"
+                        android:layout_height="61dp"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="13dp">
+
+                        <TextView
+                            android:id="@+id/textView1235655"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="E-Mail" />
+
+                        <EditText
+                            android:id="@+id/email_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="22dp"
+                            android:background="#00FFFFFF"
+                            android:fontFamily="@font/poppins"
+                            android:hint="yyusifov12087@ada.edu.az"
+                            android:inputType="text" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/bigger_password_cardview"
+                    android:layout_width="322dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="13dp"
+                    app:cardBackgroundColor="#C3C0C0"
+                    app:cardCornerRadius="13dp"
+                    app:cardElevation="0dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/password_cardview"
+                        android:layout_width="320dp"
+                        android:layout_height="61dp"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="13dp">
+
+                        <TextView
+                            android:id="@+id/textView1238454565"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Password" />
+
+                        <EditText
+                            android:id="@+id/password_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="22dp"
+                            android:background="#00FFFFFF"
+                            android:fontFamily="@font/poppins"
+                            android:hint="Password"
+                            android:inputType="textPassword" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/bigger_confirm_password_cardview"
+                    android:layout_width="322dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="13dp"
+                    app:cardBackgroundColor="#C3C0C0"
+                    app:cardCornerRadius="13dp"
+                    app:cardElevation="0dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/confirm_password_cardview"
+                        android:layout_width="320dp"
+                        android:layout_height="61dp"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="13dp">
+
+                        <TextView
+                            android:id="@+id/textView178238454565"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Confirm Password" />
+
+                        <EditText
+                            android:id="@+id/confirm_password_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="22dp"
+                            android:background="#00FFFFFF"
+                            android:fontFamily="@font/poppins"
+                            android:hint="Password"
+                            android:inputType="textPassword" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/save_button_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button_save_for_ui"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:text="Save" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

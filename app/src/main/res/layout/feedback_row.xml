@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="15dp"
     android:layout_marginTop="25dp"
+    android:layout_marginBottom="90dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp">
 
@@ -12,13 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="25dp">
+        android:paddingLeft="25dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="15dp">
 
         <TextView
             android:id="@+id/feedback_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins"
             android:text="Question 1"
             android:textColor="#FF0000" />
 
@@ -26,6 +30,18 @@
             android:id="@+id/feedback_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Question answer" />
+            android:fontFamily="@font/poppins"
+            android:text="Question answer"
+            android:textColorLink="#000000" />
+
+        <TextView
+            android:id="@+id/subtopic_number_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins"
+            android:text="TextView"
+            android:textColorLink="#000000"
+            android:textStyle="bold" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

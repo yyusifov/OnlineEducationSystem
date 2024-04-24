@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineeducationsystem.adapter.FeedbackAdapter;
+import com.example.onlineeducationsystem.model.CourseSubtopics;
 import com.example.onlineeducationsystem.model.Question;
 import com.example.onlineeducationsystem.model.UserAnswer;
 import com.example.onlineeducationsystem.model.UserGrades;
 import com.example.onlineeducationsystem.util.UserViewModel;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +51,8 @@ public class QuizResult extends AppCompatActivity {
 
     private Button reviewButton;
 
+    private Button back_to_main_page;
+
     private UserViewModel userViewModel;
 
     private RecyclerView recyclerView;
@@ -66,12 +68,24 @@ public class QuizResult extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.review_of_mistakes_id);
 
-        Snackbar.make(reviewButton, String.valueOf(getIntent().getIntegerArrayListExtra("wrong_answers")), Snackbar.LENGTH_LONG).show();
+        back_to_main_page = findViewById(R.id.back_to_mp);
+
+        //Snackbar.make(reviewButton, String.valueOf(getIntent().getIntegerArrayListExtra("wrong_answers")), Snackbar.LENGTH_LONG).show();
 
 
         final ArrayList<Integer>[] wrong_answers = new ArrayList[]{getIntent().getIntegerArrayListExtra("wrong_answers")};
 
         userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication()).create(UserViewModel.class);
+
+
+        back_to_main_page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QuizResult.this, CourseSection.class);
+
+//                intent.putExtra("user_id", );
+            }
+        });
 
 
         reviewButton.setOnClickListener(new View.OnClickListener() {
@@ -88,14 +102,24 @@ public class QuizResult extends AppCompatActivity {
                 userViewModel.getAllUserAnswers().observe(QuizResult.this, new Observer<List<UserAnswer>>() {
                     @Override
                     public void onChanged(List<UserAnswer> userAnswers) {
-                        FeedbackAdapter feedbackAdapter = new FeedbackAdapter((ArrayList<UserAnswer>) userAnswers.stream().filter(userAnswer ->
-                            userAnswer.getUser_id() == getIntent().getIntExtra("user_id",-5))
-                                .filter(userAnswer -> userAnswer.getQuiz_id() == getIntent().getIntExtra("quiz_id", -5))
-                                .filter(userAnswer -> userAnswer.getCourse_id() == getIntent().getIntExtra("course_id", -5))
-                                .filter(userAnswer -> userAnswer.getGrade_id() == userAnswers.get(userAnswers.size() - 1).getGrade_id())
-                                .collect(Collectors.toList()));
 
-                        recyclerView.setAdapter(feedbackAdapter);
+                        userViewModel.getAllQuestions().observe(QuizResult.this, new Observer<List<Question>>() {
+                            @Override
+                            public void onChanged(List<Question> questions) {
+                                userViewModel.getAllCourseSubtopics().observe(QuizResult.this, new Observer<List<CourseSubtopics>>() {
+                                    @Override
+                                    public void onChanged(List<CourseSubtopics> courseSubtopics) {
+                                        FeedbackAdapter feedbackAdapter = new FeedbackAdapter((ArrayList<UserAnswer>) userAnswers.stream().filter(userAnswer -> userAnswer.getUser_id() == getIntent().getIntExtra("user_id",-5))
+                                                .filter(userAnswer -> userAnswer.getQuiz_id() == getIntent().getIntExtra("quiz_id", -5))
+                                                .filter(userAnswer -> userAnswer.getCourse_id() == getIntent().getIntExtra("course_id", -5))
+                                                .filter(userAnswer -> userAnswer.getGrade_id() == userAnswers.get(userAnswers.size() - 1).getGrade_id())
+                                                .collect(Collectors.toList()), questions.stream().filter(question -> question.getQuiz_id() == getIntent().getIntExtra("quiz_id", -5)).collect(Collectors.toList()), courseSubtopics);
+
+                                        recyclerView.setAdapter(feedbackAdapter);
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
 
@@ -128,7 +152,7 @@ public class QuizResult extends AppCompatActivity {
                 UserViewModel.insertUserGrade(userGrades);
 
                 Log.d("tellthem", "tellthem");
-                Snackbar.make(recyclerView, "Tell them!", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(recyclerView, "Tell them!", Snackbar.LENGTH_SHORT).show();
 
                 show_result.setText(result_text);
 
@@ -138,22 +162,25 @@ public class QuizResult extends AppCompatActivity {
                     userViewModel.getAllUserGrades().observe(QuizResult.this, new Observer<List<UserGrades>>() {
                         @Override
                         public void onChanged(List<UserGrades> userGrades1) {
-                            Snackbar.make(recyclerView, "Tell them1!", Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(recyclerView, "Tell them1!", Snackbar.LENGTH_SHORT).show();
                             Log.d("tellthem1", "tellthem");
                             callAPI("This is my question: " + questions1.get(wrong_answers[0].get(finalI)).getQuestion_text() + "\n" + "This is the correct answer: " + questions1.get(wrong_answers[0].get(finalI)).getCorrectAnswer() + "\n Can you provide feedback for this question in a more detailed explanation?",
-                                    finalI + 1, questions1.get(wrong_answers[0].get(finalI)).getCorrectAnswer(), userGrades1.get(userGrades1.size() - 1).getGrade_id());
+                                    finalI + 1,
+                                    questions1.get(wrong_answers[0].get(finalI)).getCorrectAnswer(),
+                                    userGrades1.get(0).getGrade_id(),
+                                    questions1.get(wrong_answers[0].get(finalI)).getQuestion_id());
                         }
                     });
 
                 }
 
-                Snackbar.make(show_result, "Number of correct answers: " + (questions1.size() - wrong_answers[0].size()), Snackbar.LENGTH_LONG).show();
+                //Snackbar.make(show_result, "Number of correct answers: " + (questions1.size() - wrong_answers[0].size()), Snackbar.LENGTH_LONG).show();
             }
         });
 
     }
 
-    public void callAPI(String question, int questionNumber, String correct_answer, int grade_id) {
+    public void callAPI(String question, int questionNumber, String correct_answer, int grade_id, int question_id) {
         JSONObject jsonObject = new JSONObject();
         JSONArray messagesArray = new JSONArray();
 
@@ -195,7 +222,7 @@ public class QuizResult extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                getResponse("Failed response15: " + e.getMessage(), questionNumber, correct_answer, question, grade_id);
+                getResponse("Failed response15: " + e.getMessage(), questionNumber, correct_answer, question, grade_id, question_id);
             }
 
             @Override
@@ -211,7 +238,7 @@ public class QuizResult extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                getResponse(resultText.trim(), questionNumber, correct_answer, question, grade_id);
+                                getResponse(resultText.trim(), questionNumber, correct_answer, question, grade_id, question_id);
                             }
                         });
                     } catch (JSONException e) {
@@ -224,7 +251,7 @@ public class QuizResult extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            getResponse("Failed response: " + errorBody, questionNumber, correct_answer, question, grade_id);
+                            getResponse("Failed response: " + errorBody, questionNumber, correct_answer, question, grade_id, question_id);
                         }
                     });
                 }
@@ -235,20 +262,20 @@ public class QuizResult extends AppCompatActivity {
 
 
 
-    public void getResponse(String response, int questionNumber, String correct_answer, String question_text, int grade_id){
+    public void getResponse(String response, int questionNumber, String correct_answer, String question_text, int grade_id, int question_id){
 
+        if(!response.startsWith("Failed response")) {
+            UserAnswer userAnswer = new UserAnswer();
 
-        UserAnswer userAnswer = new UserAnswer();
-
-        userAnswer.setQuiz_id(getIntent().getIntExtra("quiz_id",-5));
-        userAnswer.setCorrect_answer(correct_answer);
-        userAnswer.setUser_id(getIntent().getIntExtra("user_id",-5));
-        userAnswer.setFeedback(response);
-        userAnswer.setQuestion_text(question_text);
-        userAnswer.setCourse_id(getIntent().getIntExtra("course_id",-5));
-        //Grade i duzelt
-        userAnswer.setGrade_id(grade_id);
-        userAnswer.setSubtopic_number(11);
+            userAnswer.setQuiz_id(getIntent().getIntExtra("quiz_id", -5));
+            userAnswer.setCorrect_answer(correct_answer);
+            userAnswer.setUser_id(getIntent().getIntExtra("user_id", -5));
+            userAnswer.setFeedback(response);
+            userAnswer.setQuestion_text(question_text);
+            userAnswer.setCourse_id(getIntent().getIntExtra("course_id", -5));
+            //Grade i duzelt
+            userAnswer.setGrade_id(grade_id);
+            userAnswer.setQuestion_id(question_id);
 
 //        Log.d("Yoyoyo: ", String.valueOf(userAnswer.getUser_id()));
 //        Log.d("Yoyoyo: ", String.valueOf(userAnswer.getCorrect_answer()));
@@ -260,9 +287,10 @@ public class QuizResult extends AppCompatActivity {
 //        Log.d("Yoyoyo: ", String.valueOf(userAnswer.getSubtopic_number()));
 
 
-        UserViewModel.insertUserAnswer(userAnswer);
+            UserViewModel.insertUserAnswer(userAnswer);
+        }
 
-        Snackbar.make(show_result, questionNumber + " - " + response, Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(show_result, questionNumber + " - " + response, Snackbar.LENGTH_LONG).show();
 
     }
 

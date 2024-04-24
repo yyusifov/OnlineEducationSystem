@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineeducationsystem.adapter.FeedbackAdapter;
+import com.example.onlineeducationsystem.model.CourseSubtopics;
+import com.example.onlineeducationsystem.model.Question;
 import com.example.onlineeducationsystem.model.UserAnswer;
 import com.example.onlineeducationsystem.util.UserViewModel;
 
@@ -38,14 +40,24 @@ public class FeedbackSection extends AppCompatActivity {
         userViewModel.getAllUserAnswers().observe(this, new Observer<List<UserAnswer>>() {
             @Override
             public void onChanged(List<UserAnswer> userAnswers) {
-                FeedbackAdapter feedbackAdapter = new FeedbackAdapter((ArrayList<UserAnswer>) userAnswers.stream().filter(userAnswer ->
-                                userAnswer.getUser_id() == getIntent().getIntExtra("user_id",-5))
-                        .filter(userAnswer -> userAnswer.getQuiz_id() == getIntent().getIntExtra("quiz_id", -5))
-                        .filter(userAnswer -> userAnswer.getCourse_id() == getIntent().getIntExtra("course_id", -5))
-                        .filter(userAnswer -> userAnswer.getGrade_id() == getIntent().getIntExtra("grade_id", -5))
-                        .collect(Collectors.toList()));
+                userViewModel.getAllQuestions().observe(FeedbackSection.this, new Observer<List<Question>>() {
+                    @Override
+                    public void onChanged(List<Question> questions) {
+                        userViewModel.getAllCourseSubtopics().observe(FeedbackSection.this, new Observer<List<CourseSubtopics>>() {
+                            @Override
+                            public void onChanged(List<CourseSubtopics> courseSubtopics) {
+                                FeedbackAdapter feedbackAdapter = new FeedbackAdapter((ArrayList<UserAnswer>) userAnswers.stream().filter(userAnswer ->
+                                                userAnswer.getUser_id() == getIntent().getIntExtra("user_id",-5))
+                                        .filter(userAnswer -> userAnswer.getQuiz_id() == getIntent().getIntExtra("quiz_id", -5))
+                                        .filter(userAnswer -> userAnswer.getCourse_id() == getIntent().getIntExtra("course_id", -5))
+                                        .filter(userAnswer -> userAnswer.getGrade_id() == getIntent().getIntExtra("grade_id", -5))
+                                        .collect(Collectors.toList()), questions.stream().filter(question -> question.getQuiz_id() == getIntent().getIntExtra("quiz_id", -5)).collect(Collectors.toList()), courseSubtopics);
 
-                recyclerView.setAdapter(feedbackAdapter);
+                                recyclerView.setAdapter(feedbackAdapter);
+                            }
+                        });
+                    }
+                });
             }
         });
 

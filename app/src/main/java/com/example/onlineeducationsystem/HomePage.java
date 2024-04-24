@@ -44,7 +44,6 @@ public class HomePage extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.homePage, generalPage).commit();
             }
             else if(item.getItemId() == R.id.myCourses){
-
                 MyCourses myCourses = MyCourses.newInstance(HomePage.this);
 
                 myCourses.setArguments(bundle);
@@ -52,10 +51,18 @@ public class HomePage extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.homePage, myCourses).commit();
             }
             else if(item.getItemId() == R.id.aboutSystem){
-
+                AboutMe aboutMe = AboutMe.newInstance();
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("user_id", getIntent().getIntExtra("Id_of_entered_user", -5));
+                aboutMe.setArguments(bundle1);
+                getSupportFragmentManager().beginTransaction().replace(R.id.homePage, aboutMe).commit();
             }
             else if(item.getItemId() == R.id.profileSection){
-
+                MyProfile myProfile = MyProfile.newInstance();
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("user_id", getIntent().getIntExtra("Id_of_entered_user", -5));
+                myProfile.setArguments(bundle1);
+                getSupportFragmentManager().beginTransaction().replace(R.id.homePage, myProfile).commit();
             }
 
 

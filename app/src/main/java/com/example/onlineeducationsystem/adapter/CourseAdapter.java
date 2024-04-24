@@ -13,7 +13,6 @@ import com.example.onlineeducationsystem.R;
 import com.example.onlineeducationsystem.model.CourseTopics;
 import com.example.onlineeducationsystem.model.Courses;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,11 +47,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 if(view_or_access == 0) {
-                    Snackbar.make(holder.courseElement, "Course element is clicked", Snackbar.LENGTH_LONG).show();
+                    //Snackbar.make(holder.courseElement, "Course element is clicked", Snackbar.LENGTH_LONG).show();
                     homePage.moveToCourseSection(courses.get(holder.getAdapterPosition()));
                 }
                 else if(view_or_access == 1){
-                    Snackbar.make(holder.courseElement, "Course element is clicked22", Snackbar.LENGTH_LONG).show();
+                    //Snackbar.make(holder.courseElement, "Course element is clicked22", Snackbar.LENGTH_LONG).show();
                     homePage.moveToDescriptionSection(courses.get(holder.getAdapterPosition()));
                 }
             }

@@ -14,6 +14,7 @@ import com.example.onlineeducationsystem.model.Question;
 import com.example.onlineeducationsystem.model.Quiz;
 import com.example.onlineeducationsystem.model.UserAnswer;
 import com.example.onlineeducationsystem.model.UserCourse;
+import com.example.onlineeducationsystem.model.UserGender;
 import com.example.onlineeducationsystem.model.UserGrades;
 import com.example.onlineeducationsystem.model.UserInformation;
 import com.example.onlineeducationsystem.model.UserRole;
@@ -29,6 +30,31 @@ public class UserViewModel extends AndroidViewModel {
         super(application);
 
         userRepository = new UserRepository(application);
+    }
+
+    // UserGender implementation
+    public LiveData<List<UserGender>> getAllUserGenders(){
+        return userRepository.getAllUserGenders();
+    }
+
+    public LiveData<UserGender> getUserGender(int gender_id){
+        return userRepository.getUserGender(gender_id);
+    }
+
+    public static void insertUserGender(UserGender userGender){
+        userRepository.insertUserGender(userGender);
+    }
+
+    public static void deleteUserGender(UserGender userGender){
+        userRepository.deleteUserGender(userGender);
+    }
+
+    public static void deleteAllUserGenders(){
+        userRepository.deleteAllUserGenders();
+    }
+
+    public static void updateUserGenders(UserGender userGender){
+        userRepository.updateUserGender(userGender);
     }
 
     // UserAnswer implementation

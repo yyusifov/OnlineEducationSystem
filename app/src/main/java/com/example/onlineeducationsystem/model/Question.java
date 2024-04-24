@@ -4,37 +4,39 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = @ForeignKey(entity = Quiz.class, parentColumns = "quiz_id", childColumns = "quiz_id", onDelete = ForeignKey.CASCADE))
+@Entity(foreignKeys = {
+        @ForeignKey(entity = Quiz.class, parentColumns = "quiz_id", childColumns = "quiz_id", onDelete = ForeignKey.CASCADE),
+        @ForeignKey(entity = CourseSubtopics.class, parentColumns = "id", childColumns = "subtopic_id", onDelete = ForeignKey.CASCADE)})
 public class Question {
 
     @PrimaryKey(autoGenerate = true)
     private int question_id;
 
-    private int subtopic_number;
     private int quiz_id;
-    private int questionNumber;
     private String question_text, answerA, answerB, answerC, answerD, correctAnswer;
 
+    private int subtopic_id;
 
+    public Question() {
+    }
 
-    public Question(int quiz_id, int questionNumber, String question_text, String answerA, String answerB, String answerC, String answerD, String correctAnswer, int subtopic_number) {
+    public Question(int quiz_id, String question_text, String answerA, String answerB, String answerC, String answerD, String correctAnswer, int subtopic_id) {
         this.quiz_id = quiz_id;
-        this.questionNumber = questionNumber;
         this.question_text = question_text;
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;
         this.answerD = answerD;
         this.correctAnswer = correctAnswer;
-        this.subtopic_number = subtopic_number;
+        this.subtopic_id = subtopic_id;
     }
 
-    public int getSubtopic_number() {
-        return subtopic_number;
+    public int getSubtopic_id() {
+        return subtopic_id;
     }
 
-    public void setSubtopic_number(int subtopic_number) {
-        this.subtopic_number = subtopic_number;
+    public void setSubtopic_id(int subtopic_id) {
+        this.subtopic_id = subtopic_id;
     }
 
     public int getQuestion_id() {
@@ -51,13 +53,6 @@ public class Question {
 
     public void setQuiz_id(int quiz_id) {
         this.quiz_id = quiz_id;
-    }
-    public int getQuestionNumber() {
-        return questionNumber;
-    }
-
-    public void setQuestionNumber(int questionNumber) {
-        this.questionNumber = questionNumber;
     }
 
     public String getQuestion_text() {

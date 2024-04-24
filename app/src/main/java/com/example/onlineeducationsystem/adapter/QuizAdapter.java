@@ -1,5 +1,6 @@
 package com.example.onlineeducationsystem.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,13 +45,18 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         viewHolder.start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int j = 0; j < userGradesList.size(); j++) {
-                    if(getAllQuiz.get(viewHolder.getAdapterPosition()).getQuiz_id() != userGradesList.get(j).getQuiz_id()){
-                        testSection.moveToPracticeTest(getAllQuiz.get(viewHolder.getAdapterPosition()).getQuiz_id());
+                if(!userGradesList.isEmpty()) {
+                    for (int j = 0; j < userGradesList.size(); j++) {
+                        Log.d("sssiiizzze", String.valueOf(userGradesList.get(j).getQuiz_id()));
+                        if (getAllQuiz.get(viewHolder.getAdapterPosition()).getQuiz_id() != userGradesList.get(j).getQuiz_id()) {
+                            testSection.moveToPracticeTest(getAllQuiz.get(viewHolder.getAdapterPosition()).getQuiz_id());
+                        } else {
+                            Snackbar.make(viewHolder.start_button, "This quiz has already been taken", Snackbar.LENGTH_LONG).show();
+                        }
                     }
-                    else{
-                        Snackbar.make(viewHolder.start_button, "This quiz has already been taken", Snackbar.LENGTH_LONG).show();
-                    }
+                }
+                else{
+                    testSection.moveToPracticeTest(getAllQuiz.get(viewHolder.getAdapterPosition()).getQuiz_id());
                 }
             }
         });

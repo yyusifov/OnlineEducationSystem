@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlineeducationsystem.adapter.LecturesAdapter;
 import com.example.onlineeducationsystem.model.CourseTopics;
 import com.example.onlineeducationsystem.util.UserViewModel;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +28,7 @@ public class Lectures extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.subtopicList);
 
-        Snackbar.make(recyclerView, String.valueOf(getIntent().getIntExtra("course_id", 0)), Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(recyclerView, String.valueOf(getIntent().getIntExtra("course_id", 0)), Snackbar.LENGTH_LONG).show();
 
         recyclerView.setHasFixedSize(true);
 

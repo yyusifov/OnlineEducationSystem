@@ -63,7 +63,7 @@
             android:textSize="22sp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/back_to_mp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="130dp"

@@ -33,13 +33,11 @@ public class SubtopicAdapter extends RecyclerView.Adapter<SubtopicAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        int main_n = this.courseSubtopicsList.get(viewHolder.getAdapterPosition()).getSubtopic_number() / 10;
-
-        int secondary_n = this.courseSubtopicsList.get(viewHolder.getAdapterPosition()).getSubtopic_number() % 10;
 
         viewHolder.subtopic_name.setText(this.courseSubtopicsList.get(viewHolder.getAdapterPosition()).getSubtopic_name());
 
-        viewHolder.subtopic_number.setText("Subtopic " + main_n + "." + secondary_n);
+
+        viewHolder.subtopic_number.setText("Subtopic " + this.courseSubtopicsList.get(viewHolder.getAdapterPosition()).getSubtopic_number());
 
         viewHolder.subtopic_object.setOnClickListener(new View.OnClickListener() {
             @Override
