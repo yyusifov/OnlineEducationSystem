@@ -156,23 +156,25 @@ public class QuizResult extends AppCompatActivity {
 
                 show_result.setText(result_text);
 
-                for (int i = 0; i < wrong_answers[0].size(); i++) {
-
-                    int finalI = i;
                     userViewModel.getAllUserGrades().observe(QuizResult.this, new Observer<List<UserGrades>>() {
                         @Override
                         public void onChanged(List<UserGrades> userGrades1) {
-                            //Snackbar.make(recyclerView, "Tell them1!", Snackbar.LENGTH_SHORT).show();
-                            Log.d("tellthem1", "tellthem");
-                            callAPI("This is my question: " + questions1.get(wrong_answers[0].get(finalI)).getQuestion_text() + "\n" + "This is the correct answer: " + questions1.get(wrong_answers[0].get(finalI)).getCorrectAnswer() + "\n Can you provide feedback for this question in a more detailed explanation?",
-                                    finalI + 1,
-                                    questions1.get(wrong_answers[0].get(finalI)).getCorrectAnswer(),
-                                    userGrades1.get(0).getGrade_id(),
-                                    questions1.get(wrong_answers[0].get(finalI)).getQuestion_id());
+                            if (!userGrades1.isEmpty()) {
+                                for (int i = 0; i < wrong_answers[0].size(); i++) {
+
+                                    int finalI = i;
+                                    //Snackbar.make(recyclerView, "Tell them1!", Snackbar.LENGTH_SHORT).show();
+                                    Log.d("tellthem1", "tellthem");
+                                    callAPI("This is my question: " + questions1.get(wrong_answers[0].get(finalI)).getQuestion_text() + "\n" + "This is the correct answer: " + questions1.get(wrong_answers[0].get(finalI)).getCorrectAnswer() + "\n Can you provide feedback for this question in a more detailed explanation?",
+                                            finalI + 1,
+                                            questions1.get(wrong_answers[0].get(finalI)).getCorrectAnswer(),
+                                            userGrades1.get(userGrades1.size() - 1).getGrade_id(),
+                                            questions1.get(wrong_answers[0].get(finalI)).getQuestion_id());
+                                }
+                            }
                         }
                     });
 
-                }
 
                 //Snackbar.make(show_result, "Number of correct answers: " + (questions1.size() - wrong_answers[0].size()), Snackbar.LENGTH_LONG).show();
             }
@@ -184,7 +186,6 @@ public class QuizResult extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
         JSONArray messagesArray = new JSONArray();
 
-        // System message
         JSONObject systemMessage = new JSONObject();
         try {
             systemMessage.put("role", "system");
@@ -194,7 +195,6 @@ public class QuizResult extends AppCompatActivity {
         }
         messagesArray.put(systemMessage);
 
-        // User message (question)
         JSONObject userMessage = new JSONObject();
         try {
             userMessage.put("role", "user");
@@ -214,8 +214,8 @@ public class QuizResult extends AppCompatActivity {
         RequestBody requestBody = RequestBody.create(jsonObject.toString(), JSON);
 
         Request request = new Request.Builder()
-                .url("https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer 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")
+                .url("")
+                .header("Authorization", "")
                 .post(requestBody)
                 .build();
 
@@ -234,7 +234,6 @@ public class QuizResult extends AppCompatActivity {
                         JSONArray jsonArray = jsonObject1.getJSONArray("choices");
                         String resultText = jsonArray.getJSONObject(0).getJSONObject("message").getString("content");
 
-                        // Update UI on the main thread
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -245,9 +244,7 @@ public class QuizResult extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    // Handle unsuccessful response
-                    String errorBody = response.body().string(); // Read the error body
-                    // Update UI on the main thread
+                    String errorBody = response.body().string();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

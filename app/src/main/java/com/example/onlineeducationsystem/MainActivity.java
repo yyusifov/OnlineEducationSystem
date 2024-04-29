@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 //        UserCourse userCourse = new UserCourse();
 //
 //        userCourse.setCourse_id(2);
-//        userCourse.setUser_id(2);
+//        userCourse.setUser_id(1);
 //
 //        UserViewModel.insertUserCourse(userCourse);
 //
@@ -485,9 +485,9 @@ public class MainActivity extends AppCompatActivity {
 //        question30.setSubtopic_id(1);
 //        UserViewModel.insertQuestion(question30);
 //
-        UserViewModel.deleteAllUserAnswers();
-
-        UserViewModel.deleteAllUserGrades();
+//        UserViewModel.deleteAllUserAnswers();
+//
+//        UserViewModel.deleteAllUserGrades();
 //
 //        UserViewModel.deleteAllQuestions();
 
